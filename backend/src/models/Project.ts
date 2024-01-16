@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { IAssignment } from './Assignment';
 
-interface IProject {
+export interface IProject {
 	name: string;
 	assignments?: IAssignment[];
 }

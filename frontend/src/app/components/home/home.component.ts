@@ -14,6 +14,7 @@ import { RouterLink } from '@angular/router';
 })
 export class HomeComponent {
   public projects$ = this.service.projects$;
+  public assignments$ = this.service.assignments$;
 
   displayedColumns: string[] = [
     'number',
@@ -29,7 +30,7 @@ export class HomeComponent {
   constructor(private service: ApiService) {}
 
   ngOnInit() {
-    this.service.getInitialData();
+    this.service.getAssignmentsList();
   }
 
   onDelete(id: number) {

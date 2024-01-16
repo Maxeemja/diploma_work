@@ -8,8 +8,7 @@ export interface Assignment {
   priority: Priority;
   deadline: Date;
   projectId: number;
-  memberId: number;
-  member?: Member;
+  assignee?: Member;
 }
 
 export enum Status {

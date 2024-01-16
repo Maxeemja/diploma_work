@@ -13,10 +13,22 @@ import { Router } from '@angular/router';
 export class ApiService {
   public projects$ = new BehaviorSubject<Project[]>([]);
   public members$ = new BehaviorSubject<Member[]>([]);
+  public assignments$ = new BehaviorSubject<Assignment[]>([]);
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  public getAssignmentsList() {}
+  public getAssignmentsList() {
+    this.http
+      .get<Assignment[]>(`${API_URL}/assignments`)
+      .pipe(
+        take(1),
+        map((data) => {
+          this.assignments$.next(data);
+        })
+      )
+      .subscribe();
+
+  }
 
   public getInitialData() {
     this.http

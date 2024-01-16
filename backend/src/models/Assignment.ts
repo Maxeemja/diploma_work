@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { IMember } from './Member';
+import { IProject } from './Project';
 
 enum Status {
 	ToDo,
@@ -20,7 +21,7 @@ export interface IAssignment {
 	status?: Status;
 	priority?: Priority;
 	deadline: Date;
-	projectId: string;
+	project: IProject;
   assignee?: IMember
 }
 
@@ -44,7 +45,7 @@ const assignmentSchema = new mongoose.Schema({
 		default: () => Date.now()
 	},
 	assignee: { type: mongoose.Schema.Types.ObjectId, ref: 'Member' },
-	projectId: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Project' }
+	project: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Project' }
 });
 
 assignmentSchema.statics.build = (attr: IAssignment) => {

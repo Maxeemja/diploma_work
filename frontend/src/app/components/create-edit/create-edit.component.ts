@@ -70,7 +70,7 @@ export class CreateEditComponent {
             priority: data?.priority,
             deadline: data?.deadline.toString(),
             projectId: data?.projectId,
-            memberId: data?.memberId,
+            memberId: data?.assignee?.id!,
           });
           this.projectId = data.projectId;
           this.assignmentId = data.id!;

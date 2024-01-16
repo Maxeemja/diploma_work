@@ -11,7 +11,7 @@ router.post('/', async (req: Request, res: Response) => {
 		name,
 		description,
 		deadline: new Date(deadline),
-		projectId,
+		project: projectId,
 		assignee: memberId
 	});
 
@@ -25,22 +25,22 @@ router.post('/', async (req: Request, res: Response) => {
 
 router.get('/', async (req: Request, res: Response) => {
 	try {
-		const data = await Assignment.find().populate(['assignee', 'projectId']);
+		const data = await Assignment.find().populate(['assignee', 'project']);
 		res.json(data);
 	} catch (error: any) {
 		res.status(500).json({ message: error.message });
 	}
 });
 
-// //Get by ID Method
-// router.get('/get/:id', async (req, res) => {
-// 	try {
-// 		const data = await User.findById(req.params.id);
-// 		res.json(data);
-// 	} catch (error) {
-// 		res.status(500).json({ message: error.message });
-// 	}
-// });
+//Get by ID Method
+router.get('/:id', async (req, res) => {
+	try {
+		const data = await Assignment.findById(req.params.id);
+		res.json(data);
+	} catch (error: any) {
+		res.status(500).json({ message: error.message });
+	}
+});
 
 // //Update by ID Method
 // router.patch('/update/:id', async (req, res) => {
