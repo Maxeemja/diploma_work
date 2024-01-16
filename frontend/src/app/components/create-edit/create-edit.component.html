@@ -1,0 +1,68 @@
+<div class="container">
+  <h3 class="title">{{ isEdit ? "Edit" : "Create" }}</h3>
+
+  <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="example-full-width">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option [value]="0">ToDo</mat-option>
+        <mat-option [value]="1">In Progress</mat-option>
+        <mat-option [value]="2">Done</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Priority</mat-label>
+      <mat-select formControlName="priority">
+        <mat-option [value]="0">Low</mat-option>
+        <mat-option [value]="1">Medium</mat-option>
+        <mat-option [value]="2">High</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Deadline</mat-label>
+      <input formControlName="deadline" matInput [matDatepicker]="picker" />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Assignee</mat-label>
+      <ng-container *ngIf="members$ | async as members">
+        <mat-select formControlName="memberId">
+          <mat-option *ngFor="let member of members" [value]="member.id"
+            >{{ member.name }} {{ member.surname }}</mat-option
+          >
+        </mat-select>
+      </ng-container>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Project ID</mat-label>
+      <ng-container *ngIf="!this.isEdit">
+        <input matInput disabled [value]="projectId" />
+      </ng-container>
+      <ng-container *ngIf="this.isEdit">
+        <input matInput formControlName="projectId" [value]="projectId" />
+      </ng-container>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" type="submit">
+      {{ this.isEdit ? "Edit" : "Create" }}
+    </button>
+  </form>
+</div>

@@ -1,0 +1,15 @@
+.header {
+  padding: 10px;
+  background: gray;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 30px;
+  padding: 10px;
+}
