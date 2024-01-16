@@ -4,10 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "dev": "ts-node-dev src/index.ts",
+    "start": "ts-node-dev src/index.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["diploma_work"],
+  "keywords": [
+    "diploma_work"
+  ],
   "author": "Maksym Hrytsiuk",
   "license": "ISC",
   "dependencies": {
@@ -18,5 +22,11 @@
     "mongoose": "^8.0.3",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/mongoose": "^5.11.97",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.3.3"
   }
 }
