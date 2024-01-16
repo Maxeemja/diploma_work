@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-interface IMember {
+export interface IMember {
 	firstName: string;
 	secondName: string;
 	isBusy?: boolean;

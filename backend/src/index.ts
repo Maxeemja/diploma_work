@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import { membersRouter } from './routes';
+import { membersRouter, assignmentsRouter, projectsRouter } from './routes';
 import dotenv from 'dotenv';
 dotenv.config({ path: __dirname + '/.env' });
 
@@ -22,6 +22,8 @@ const app = express();
 app.use(express.json());
 
 app.use('/members', membersRouter);
+app.use('/assignments', assignmentsRouter);
+app.use('/projects', projectsRouter);
 
 app.listen(3000, () => {
 	console.log(`Server Started at ${3000}`);
