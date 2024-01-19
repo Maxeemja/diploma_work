@@ -4,20 +4,22 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
+import { concatMap, groupBy, mergeMap, of, take, tap, toArray } from 'rxjs';
+import { Assignment } from '../../interfaces/Assignment';
+import { GroupPipe } from '../../pipes/group.pipe';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
-  imports: [CommonModule, MatButtonModule, MatTableModule, RouterLink],
+  imports: [CommonModule, MatButtonModule, MatTableModule, RouterLink, GroupPipe],
 })
 export class HomeComponent {
   public projects$ = this.service.projects$;
   public assignments$ = this.service.assignments$;
 
   displayedColumns: string[] = [
-    'number',
     'name',
     'description',
     'status',
