@@ -3,29 +3,22 @@ import { Project } from '../models/Project';
 
 const router = express.Router();
 
-//Post Method
-// router.post('/', async (req: Request, res: Response) => {
-// 	const { name, description, deadline, projectId, memberId } = req.body;
+router.post('/', async (req: Request, res: Response) => {
+	const project = Project.build({
+		name: req.body.name
+	});
 
-// 	const assignment = Project.build({
-// 		name,
-// 		description,
-// 		deadline: new Date(deadline),
-// 		projectId,
-// 		assignee: memberId
-// 	});
-
-// 	try {
-// 		await assignment.save();
-// 		res.status(200).json(assignment);
-// 	} catch (error: any) {
-// 		res.status(400).json({ message: error.message });
-// 	}
-// });
+	try {
+		await project.save();
+		res.status(200).json(project);
+	} catch (error: any) {
+		res.status(400).json({ message: error.message });
+	}
+});
 
 router.get('/', async (req: Request, res: Response) => {
 	try {
-		const data = await Project.find().populate(['assignments']);
+		const data = await Project.find();
 		res.json(data);
 	} catch (error: any) {
 		res.status(500).json({ message: error.message });
