@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class ApiService {
+  public currentProject$ = new BehaviorSubject('');
   public projects$ = new BehaviorSubject<Project[]>([]);
   public members$ = new BehaviorSubject<Member[]>([]);
   public assignments$ = new BehaviorSubject<Assignment[]>([]);
@@ -27,16 +28,27 @@ export class ApiService {
         })
       )
       .subscribe();
-
   }
 
-  public getInitialData() {
+  public getProjectsList() {
+    return this.http.get<Project[]>(`${API_URL}/projects`).pipe(
+      take(1),
+      map((data) => {
+        const payload = data.map((item) => ({ ...item, id: item._id }));
+        this.currentProject$.next(payload[0].id);
+        this.projects$.next(payload);
+        return payload;
+      })
+    );
+  }
+
+  public getProjectAssignments(id: string) {
     this.http
-      .get<Project[]>(`${API_URL}/all`)
+      .get<Assignment[]>(`${API_URL}/assignments/of/${id}`)
       .pipe(
         take(1),
         map((data) => {
-          this.projects$.next(data);
+          this.assignments$.next(data);
         })
       )
       .subscribe();

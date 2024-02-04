@@ -1,13 +1,14 @@
 import { Member } from './Member';
+import { Project } from './Project';
 
 export interface Assignment {
-  id?: number;
+  id?: string;
   name: string;
   description: string;
   status: Status;
   priority: Priority;
   deadline: Date;
-  projectId: number;
+  project?: Project;
   assignee?: Member;
 }
 

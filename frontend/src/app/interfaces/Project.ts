@@ -1,7 +1,7 @@
 import { Assignment } from "./Assignment";
 
 export interface Project {
-  id: number,
+  id?: string,
+  _id: string,
   name: string,
-  assignments: Assignment[]
 }
