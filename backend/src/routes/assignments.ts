@@ -42,6 +42,17 @@ router.get('/:id', async (req, res) => {
 	}
 });
 
+//Get by ID Method
+router.get('/of/:id', async (req, res) => {
+	try {
+		const data = await Assignment.find({ project: req.params.id }).populate(['assignee', 'project']);
+		res.json(data);
+	} catch (error: any) {
+		res.status(500).json({ message: error.message });
+	}
+});
+
+
 // //Update by ID Method
 // router.patch('/update/:id', async (req, res) => {
 // 	try {
