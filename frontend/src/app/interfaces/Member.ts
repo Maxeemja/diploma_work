@@ -1,6 +1,7 @@
 export interface Member {
-  id: string,
-  name: string,
-  surname: string,
+  id?: string,
+  _id: string,
+  firstName: string,
+  secondName: string,
   isBusy: boolean
 }

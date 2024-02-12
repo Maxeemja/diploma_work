@@ -6,6 +6,7 @@ import { Project } from '../interfaces/Project';
 import { Member } from '../interfaces/Member';
 import { Assignment } from '../interfaces/Assignment';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class ApiService {
   public members$ = new BehaviorSubject<Member[]>([]);
   public assignments$ = new BehaviorSubject<Assignment[]>([]);
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private toastr: ToastrService) {}
 
   public getInitialData() {
     this.http
@@ -87,7 +88,8 @@ export class ApiService {
       .pipe(
         take(1),
         map((data) => {
-          this.members$.next(data);
+          const payload = data.map((item) => ({ ...item, id: item._id }));
+          this.members$.next(payload);
         })
       )
       .subscribe();
@@ -99,10 +101,11 @@ export class ApiService {
 
   public createAssignment(payload: any) {
     this.http
-      .post<Assignment>(`${API_URL}/create`, payload)
+      .post<Assignment>(`${API_URL}/assignments`, payload)
       .pipe(take(1))
       .subscribe((data) => {
         if (data) {
+          this.toastr.success('Assignment was successfully created', 'Done')
           this.router.navigate(['/']);
         }
       });

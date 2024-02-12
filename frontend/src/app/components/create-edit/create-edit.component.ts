@@ -34,16 +34,15 @@ import { take } from 'rxjs';
   styleUrl: './create-edit.component.scss',
 })
 export class CreateEditComponent {
-  public projectId: string = this.route.snapshot.params['id'];
   public members$ = this.service.members$;
-  public isEdit = this.router.url.includes('edit') || false;
+  public projects$ = this.service.projects$;
+  public isEdit = !!this.route.snapshot.params['id'];
   assignmentId: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private service: ApiService,
-    private router: Router
+    private service: ApiService
   ) {}
 
   myForm = this.fb.group({
@@ -52,12 +51,13 @@ export class CreateEditComponent {
     status: [0, Validators.required],
     priority: [0, Validators.required],
     deadline: ['', Validators.required],
-    projectId: [this.projectId, Validators.required],
+    projectId: ['', Validators.required],
     memberId: ['', Validators.required],
   });
 
   ngOnInit() {
     this.service.getMembers();
+    this.service.getProjectsList();
     if (this.isEdit) {
       this.service
         .getAssignment(this.route.snapshot.params['id'])
@@ -70,9 +70,8 @@ export class CreateEditComponent {
             priority: data?.priority,
             deadline: data?.deadline.toString(),
             projectId: data?.project?._id || '',
-            memberId: data?.assignee?.id || '',
+            memberId: data?.assignee?._id || '',
           });
-          this.projectId = data?.project?._id || '';
           this.assignmentId = data.id!;
         });
     }
