@@ -41,12 +41,7 @@ export class HomeComponent {
   constructor(private service: ApiService) {}
 
   ngOnInit() {
-    this.service
-      .getProjectsList()
-      .pipe(take(1))
-      .subscribe((projects: Project[]) => {
-        this.service.getProjectAssignments(projects[0]?._id);
-      });
+    this.service.getInitialData();
   }
 
   onDelete(id: number) {
@@ -55,10 +50,9 @@ export class HomeComponent {
 
   onSelectChange(id: string) {
     this.service.currentProject$.next(id);
-    if (id !== 'all') {
-      this.service.getProjectAssignments(id);
-    } else {
-      this.service.getAssignmentsList();
-    }
+
+    id === 'all'
+      ? this.service.getAssignmentsList()
+      : this.service.getProjectAssignments(id);
   }
 }

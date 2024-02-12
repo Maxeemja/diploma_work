@@ -9,7 +9,16 @@ interface projectModelInterface extends mongoose.Model<any> {
 }
 
 const projectSchema = new mongoose.Schema({
-	name: { type: String, required: true },
+	name: {
+		type: String,
+		required: true,
+		validate: {
+			validator: function (v: string) {
+				return /^((?!all).)*$[a-zA-Z]/i.test(v);
+			},
+			message: (props: any) => `Project cannot be named like this!`
+		}
+	},
 	createdAt: {
 		type: Date,
 		immutable: true,

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, take } from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap, take, tap } from 'rxjs';
 import { API_URL } from '../shared/constants';
 import { Project } from '../interfaces/Project';
 import { Member } from '../interfaces/Member';
@@ -18,6 +18,32 @@ export class ApiService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  public getInitialData() {
+    this.http
+      .get<Project[]>(`${API_URL}/projects`)
+      .pipe(
+        take(1),
+        map((data) => {
+          const payload = data.map((item) => ({ ...item, id: item._id }));
+          this.currentProject$.next(payload[0].id);
+          console.log(this.currentProject$.getValue())
+          this.projects$.next(payload);
+          return payload[0].id;
+        }),
+        switchMap((id) => {
+          return this.http
+            .get<Assignment[]>(`${API_URL}/assignments/of/${id}`)
+            .pipe(
+              take(1),
+              map((data) => {
+                this.assignments$.next(data);
+              })
+            );
+        })
+      )
+      .subscribe();
+  }
+
   public getAssignmentsList() {
     this.http
       .get<Assignment[]>(`${API_URL}/assignments`)
@@ -31,15 +57,16 @@ export class ApiService {
   }
 
   public getProjectsList() {
-    return this.http.get<Project[]>(`${API_URL}/projects`).pipe(
-      take(1),
-      map((data) => {
-        const payload = data.map((item) => ({ ...item, id: item._id }));
-        this.currentProject$.next(payload[0].id);
-        this.projects$.next(payload);
-        return payload;
-      })
-    );
+    this.http
+      .get<Project[]>(`${API_URL}/projects`)
+      .pipe(
+        take(1),
+        map((data) => {
+          const payload = data.map((item) => ({ ...item, id: item._id }));
+          this.projects$.next(payload);
+        })
+      )
+      .subscribe();
   }
 
   public getProjectAssignments(id: string) {
