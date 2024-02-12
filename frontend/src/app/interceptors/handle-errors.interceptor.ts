@@ -13,12 +13,6 @@ import { HandleErrorService } from '../services/handle-error.service';
 @Injectable()
 export class HandleErrorsInterceptor implements HttpInterceptor {
   constructor(private errorService: HandleErrorService) {}
-/* 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log('app interceptor...');
-    
-    return next.handle(request);
-  } */
 
   public intercept(
     req: HttpRequest<any>,

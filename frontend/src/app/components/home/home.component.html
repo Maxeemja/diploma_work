@@ -1,4 +1,7 @@
 <ng-container *ngIf="assignments$ | async as assignments">
+  <ng-container *ngIf="!assignments.length">
+    <div class="empty">Looks like nothing is here...</div></ng-container
+  >
   <ng-container *ngIf="projects$ | async as projects">
     <ng-container *ngIf="currentProject$ | async as currentProject">
       <div class="container">

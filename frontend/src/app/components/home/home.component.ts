@@ -6,8 +6,6 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { GroupPipe } from '../../pipes/group.pipe';
 import { MatSelectModule } from '@angular/material/select';
-import { take } from 'rxjs';
-import { Project } from '../../interfaces/Project';
 
 @Component({
   selector: 'app-home',
