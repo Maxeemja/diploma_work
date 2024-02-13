@@ -108,7 +108,7 @@
                   <button
                     mat-flat-button
                     color="accent"
-                    [routerLink]="['edit', assignment.id]"
+                    [routerLink]="['edit', assignment._id]"
                   >
                     Edit
                   </button>
@@ -116,7 +116,7 @@
                   <button
                     mat-flat-button
                     color="warn"
-                    (click)="onDelete(assignment.id)"
+                    (click)="onDelete(assignment._id)"
                   >
                     Delete
                   </button>

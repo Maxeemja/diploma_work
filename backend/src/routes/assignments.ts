@@ -45,13 +45,30 @@ router.get('/:id', async (req, res) => {
 //Get by ID Method
 router.get('/of/:id', async (req, res) => {
 	try {
-		const data = await Assignment.find({ project: req.params.id }).populate(['assignee', 'project']);
+		const data = await Assignment.find({ project: req.params.id }).populate([
+			'assignee',
+			'project'
+		]);
 		res.json(data);
 	} catch (error: any) {
 		res.status(500).json({ message: error.message });
 	}
 });
 
+//Delete by ID Method
+router.delete('/delete/:id', async (req, res) => {
+	try {
+		const id = req.params.id;
+		const { currProjId } = req.body;
+		await Assignment.findByIdAndDelete(id);
+		const items = await Assignment.find(
+			currProjId !== 'all' ? { project: currProjId } : {}
+		).populate(['assignee', 'project']);
+		res.status(200).send(items);
+	} catch (error: any) {
+		res.status(400).json({ message: error.message });
+	}
+});
 
 // //Update by ID Method
 // router.patch('/update/:id', async (req, res) => {
@@ -63,17 +80,6 @@ router.get('/of/:id', async (req, res) => {
 // 		const result = await User.findByIdAndUpdate(id, updatedData, options);
 
 // 		res.send(result);
-// 	} catch (error) {
-// 		res.status(400).json({ message: error.message });
-// 	}
-// });
-
-// //Delete by ID Method
-// router.delete('/delete/:id', async (req, res) => {
-// 	try {
-// 		const id = req.params.id;
-// 		const data = await User.findByIdAndDelete(id);
-// 		res.send(`Document with ${data.name} has been deleted..`);
 // 	} catch (error) {
 // 		res.status(400).json({ message: error.message });
 // 	}

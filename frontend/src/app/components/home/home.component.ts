@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -43,14 +43,10 @@ export class HomeComponent {
   }
 
   onDelete(id: number) {
-    this.service.delete(id);
+    this.service.deleteAssignment(id);
   }
 
   onSelectChange(id: string) {
     this.service.currentProject$.next(id);
-
-    id === 'all'
-      ? this.service.getAssignmentsList()
-      : this.service.getProjectAssignments(id);
   }
 }

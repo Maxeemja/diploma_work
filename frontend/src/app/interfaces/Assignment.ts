@@ -3,6 +3,7 @@ import { Project } from './Project';
 
 export interface Assignment {
   id?: string;
+  _id: string;
   name: string;
   description: string;
   status: Status;
