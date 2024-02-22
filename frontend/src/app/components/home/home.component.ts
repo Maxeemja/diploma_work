@@ -6,6 +6,9 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { GroupPipe } from '../../pipes/group.pipe';
 import { MatSelectModule } from '@angular/material/select';
+import { Observable, combineLatest, map, withLatestFrom } from 'rxjs';
+import { displayedColumns } from '../../shared/constants';
+import { HomePageData } from '../../interfaces/HomePageData';
 
 @Component({
   selector: 'app-home',
@@ -22,24 +25,25 @@ import { MatSelectModule } from '@angular/material/select';
   ],
 })
 export class HomeComponent {
-  public projects$ = this.service.projects$;
-  public assignments$ = this.service.assignments$;
-  public currentProject$ = this.service.currentProject$;
+  public data$ = new Observable<HomePageData>();
 
-  displayedColumns: string[] = [
-    'name',
-    'description',
-    'status',
-    'priority',
-    'assignee',
-    'deadline',
-    'actions',
-  ];
+  public displayedColumns: string[] = displayedColumns;
 
   constructor(private service: ApiService) {}
 
   ngOnInit() {
     this.service.getInitialData();
+    this.data$ = combineLatest([
+      this.service.projects$,
+      this.service.assignments$,
+      this.service.currentProject$,
+    ]).pipe(
+      map(([projects, assignments, currentProject]) => ({
+        projects,
+        assignments,
+        currentProject,
+      }))
+    );
   }
 
   onDelete(id: number) {
