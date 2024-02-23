@@ -6,17 +6,7 @@ import { Toast, ToastrService } from 'ngx-toastr';
 })
 export class HandleErrorService {
   constructor(private toaster: ToastrService) {}
-  // public handleError(err: HttpErrorResponse) {
-  //   let errorMessage: string;
-  //   if (err.error instanceof ErrorEvent) {
-  //     errorMessage = `An error occurred: ${err.error.message}`;
-  //   } else {
-  //     // The backend returned an unsuccessful response.
-  //     errorMessage = 'Something Went Wrong';
-  //     this.toaster.error(errorMessage, 'Error');
-  //   }
-  // }
-
+  
   // Handling HTTP Errors using Toaster
   public handleError(err: HttpErrorResponse) {
     let errorMessage: string;
