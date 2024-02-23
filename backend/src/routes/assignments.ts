@@ -35,7 +35,10 @@ router.get('/', async (req: Request, res: Response) => {
 //Get by ID Method
 router.get('/:id', async (req, res) => {
 	try {
-		const data = await Assignment.findById(req.params.id);
+		const data = await Assignment.findById(req.params.id).populate([
+			'assignee',
+			'project'
+		]);
 		res.json(data);
 	} catch (error: any) {
 		res.status(500).json({ message: error.message });
@@ -70,19 +73,19 @@ router.delete('/delete/:id', async (req, res) => {
 	}
 });
 
-// //Update by ID Method
-// router.patch('/update/:id', async (req, res) => {
-// 	try {
-// 		const id = req.params.id;
-// 		const updatedData = req.body;
-// 		const options = { new: true };
+//Update by ID Method
+router.patch('/update/:id', async (req, res) => {
+	try {
+		const id = req.params.id;
+		const updatedData = req.body;
+		const options = { new: true };
 
-// 		const result = await User.findByIdAndUpdate(id, updatedData, options);
+		const result = await Assignment.findByIdAndUpdate(id, updatedData, options);
 
-// 		res.send(result);
-// 	} catch (error) {
-// 		res.status(400).json({ message: error.message });
-// 	}
-// });
+		res.send(result);
+	} catch (error: any) {
+		res.status(400).json({ message: error.message });
+	}
+});
 
 export { router as assignmentsRouter };
