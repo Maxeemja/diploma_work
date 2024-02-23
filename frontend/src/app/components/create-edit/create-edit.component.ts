@@ -15,6 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ApiService } from '../../services/api.service';
 import { take } from 'rxjs';
+import { Assignment } from '../../interfaces/Assignment';
 
 @Component({
   selector: 'app-create-edit',
@@ -51,8 +52,8 @@ export class CreateEditComponent {
     status: [0, Validators.required],
     priority: [0, Validators.required],
     deadline: ['', Validators.required],
-    projectId: ['', Validators.required],
-    memberId: ['', Validators.required],
+    project: ['', Validators.required],
+    assignee: ['', Validators.required],
   });
 
   ngOnInit() {
@@ -62,17 +63,18 @@ export class CreateEditComponent {
       this.service
         .getAssignment(this.route.snapshot.params['id'])
         .pipe(take(1))
-        .subscribe((data) => {
+        .subscribe((data: Assignment) => {
+          console.log(data)
           this.myForm.setValue({
             name: data?.name,
             description: data?.description,
             status: data?.status,
             priority: data?.priority,
             deadline: data?.deadline.toString(),
-            projectId: data?.project?._id || '',
-            memberId: data?.assignee?._id || '',
+            project: data?.project?._id || '',
+            assignee: data?.assignee?._id || '',
           });
-          this.assignmentId = data.id!;
+          this.assignmentId = data._id || '';
         });
     }
   }

@@ -43,8 +43,8 @@
     <mat-form-field>
       <mat-label>Assignee</mat-label>
       <ng-container *ngIf="members$ | async as members">
-        <mat-select formControlName="memberId">
-          <mat-option *ngFor="let member of members" [value]="member.id"
+        <mat-select formControlName="assignee">
+          <mat-option *ngFor="let member of members" [value]="member._id"
             >{{ member.firstName }} {{ member.secondName }}</mat-option
           >
         </mat-select>
@@ -54,8 +54,8 @@
     <ng-container *ngIf="projects$ | async as projects">
       <mat-form-field>
         <mat-label>Project ID</mat-label>
-        <mat-select formControlName="projectId">
-          <mat-option *ngFor="let project of projects" [value]="project.id">{{
+        <mat-select formControlName="project">
+          <mat-option *ngFor="let project of projects" [value]="project._id">{{
             project.name
           }}</mat-option>
         </mat-select>

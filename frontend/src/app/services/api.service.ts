@@ -23,7 +23,7 @@ const assignmentsEndpointUrl = `${API_URL}/assignments`;
   providedIn: 'root',
 })
 export class ApiService {
-  public currentProject$ = new BehaviorSubject('');
+  public currentProject$ = new BehaviorSubject('all');
   public projects$ = new BehaviorSubject<Project[]>([]);
   public members$ = new BehaviorSubject<Member[]>([]);
   public assignments$ = new BehaviorSubject<Assignment[]>([]);
@@ -91,7 +91,7 @@ export class ApiService {
 
   public updateAssignment(payload: any) {
     this.http
-      .post<Assignment>(`${assignmentsEndpointUrl}/edit`, payload)
+      .patch<Assignment>(`${assignmentsEndpointUrl}/update/${payload.id}`, payload)
       .pipe(take(1))
       .subscribe((data) => {
         if (data) {
