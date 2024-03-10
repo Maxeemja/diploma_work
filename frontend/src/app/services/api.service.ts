@@ -53,7 +53,6 @@ export class ApiService {
         take(1),
         map((data) => {
           const payload = data.map((item) => ({ ...item, id: item._id }));
-          this.currentProject$.next(payload[0].id);
           this.projects$.next(payload);
         })
       )
