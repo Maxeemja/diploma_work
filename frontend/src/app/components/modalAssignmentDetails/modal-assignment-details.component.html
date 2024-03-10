@@ -1,4 +1,7 @@
-ID : {{ data.id }}
+<ng-container *ngIf="data.assignment as assignment">
+  
+  ID : {{ assignment._id }} Name : {{ assignment.name }}
+</ng-container>
 
 <hr />
 

@@ -122,7 +122,8 @@
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr
-            (click)="onItemClick(assignment._id)"
+            class="table-row"
+            (click)="onItemClick(assignment)"
             mat-row
             *matRowDef="let assignment; columns: displayedColumns"
           ></tr>

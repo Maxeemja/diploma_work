@@ -10,6 +10,7 @@ import { Observable, combineLatest } from 'rxjs';
 import { HomePageData } from '../../interfaces/HomePageData';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { ModalAssignmentDetailsComponent } from '../modalAssignmentDetails/modal-assignment-details.component';
+import { Assignment } from '../../interfaces/Assignment';
 
 @Component({
   selector: 'app-home',
@@ -65,10 +66,9 @@ export class HomeComponent {
     }
   }
 
-  onItemClick(id: string) {
-    console.log(id);
+  onItemClick(assignment: Assignment) {
     this.dialog.open<string>(ModalAssignmentDetailsComponent, {
-      data: { id },
+      data: { assignment },
     });
   }
 }
