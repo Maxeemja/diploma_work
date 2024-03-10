@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,8 +8,8 @@ import { GroupPipe } from '../../pipes/group.pipe';
 import { MatSelectModule } from '@angular/material/select';
 import { Observable, combineLatest } from 'rxjs';
 import { HomePageData } from '../../interfaces/HomePageData';
-import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { Dialog, DialogModule } from '@angular/cdk/dialog';
+import { ModalAssignmentDetailsComponent } from '../modalAssignmentDetails/modal-assignment-details.component';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +23,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
     RouterLink,
     GroupPipe,
     MatSelectModule,
+    DialogModule,
   ],
 })
 export class HomeComponent {
@@ -43,7 +44,7 @@ export class HomeComponent {
     'actions',
   ];
 
-  constructor(private service: ApiService) {}
+  constructor(private service: ApiService, public dialog: Dialog) {}
 
   ngOnInit() {
     this.service.getInitialData();
@@ -62,5 +63,12 @@ export class HomeComponent {
         (col) => col !== 'projectName'
       );
     }
+  }
+
+  onItemClick(id: string) {
+    console.log(id);
+    this.dialog.open<string>(ModalAssignmentDetailsComponent, {
+      data: { id },
+    });
   }
 }
