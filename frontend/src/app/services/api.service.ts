@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import {
   BehaviorSubject,
   Observable,
@@ -23,7 +23,7 @@ const assignmentsEndpointUrl = `${API_URL}/assignments`;
   providedIn: 'root',
 })
 export class ApiService {
-  public currentProject$ = new BehaviorSubject('all');
+  public currentProject = signal('all');
   public projects$ = new BehaviorSubject<Project[]>([]);
   public members$ = new BehaviorSubject<Member[]>([]);
   public assignments$ = new BehaviorSubject<Assignment[]>([]);
@@ -34,11 +34,7 @@ export class ApiService {
     private router: Router,
     private toastr: ToastrService
   ) {
-    this.currentProject$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((id: string) => {
-        this.getAssignmentsList(id === 'all' ? undefined : id);
-      });
+    this.getAssignmentsList(this.currentProject() === 'all' ? undefined : this.currentProject());
   }
 
   ngOnDestroy() {
@@ -90,7 +86,10 @@ export class ApiService {
 
   public updateAssignment(payload: any) {
     this.http
-      .patch<Assignment>(`${assignmentsEndpointUrl}/update/${payload.id}`, payload)
+      .patch<Assignment>(
+        `${assignmentsEndpointUrl}/update/${payload.id}`,
+        payload
+      )
       .pipe(take(1))
       .subscribe((data) => {
         if (data) {
@@ -103,7 +102,7 @@ export class ApiService {
     if (confirm('Do u wanna delete this item?')) {
       this.http
         .delete<Assignment[]>(`${assignmentsEndpointUrl}/delete/${id}`, {
-          body: { currProjId: this.currentProject$.getValue() },
+          body: { currProjId: this.currentProject() },
         })
         .pipe(take(1))
         .subscribe((data: Assignment[]) => {

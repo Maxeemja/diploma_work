@@ -7,7 +7,7 @@
       <mat-form-field class="selector">
         <mat-label>Choose Project</mat-label>
         <mat-select
-          [value]="data.currentProject"
+          [value]="currentProject()"
           (valueChange)="onSelectChange($event)"
         >
           @for (project of data.projects; track project) {
@@ -21,7 +21,7 @@
         <div class="header-group">
           <h4 class="title">
             {{
-              data.currentProject !== "all"
+              currentProject() !== "all"
                 ? data.assignments[0].project?.name
                 : "All"
             }}
@@ -39,7 +39,7 @@
           class="mat-elevation-z8"
         >
           <ng-container
-            *ngIf="data.currentProject === 'all'"
+            *ngIf="currentProject() === 'all'"
             matColumnDef="projectName"
           >
             <th mat-header-cell *matHeaderCellDef>Project</th>

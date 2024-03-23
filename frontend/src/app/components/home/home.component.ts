@@ -28,10 +28,10 @@ import { Assignment } from '../../interfaces/Assignment';
   ],
 })
 export class HomeComponent {
+  public currentProject = this.service.currentProject
   public data$: Observable<HomePageData> = combineLatest({
     projects: this.service.projects$,
     assignments: this.service.assignments$,
-    currentProject: this.service.currentProject$,
   });
 
   public displayedColumns = [
@@ -56,7 +56,7 @@ export class HomeComponent {
   }
 
   onSelectChange(id: string) {
-    this.service.currentProject$.next(id);
+    this.currentProject.set(id);
     if (id === 'all') {
       this.displayedColumns = ['projectName', ...this.displayedColumns];
     } else {
