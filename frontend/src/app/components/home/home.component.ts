@@ -57,6 +57,7 @@ export class HomeComponent {
 
   onSelectChange(id: string) {
     this.currentProject.set(id);
+    this.service.getAssignmentsList(id !== 'all' ? id : undefined);
     if (id === 'all') {
       this.displayedColumns = ['projectName', ...this.displayedColumns];
     } else {
