@@ -5,15 +5,7 @@ const router = express.Router();
 
 //Post Method
 router.post('/', async (req: Request, res: Response) => {
-	const { name, description, deadline, projectId, memberId } = req.body;
-
-	const assignment = Assignment.build({
-		name,
-		description,
-		deadline: new Date(deadline),
-		project: projectId,
-		assignee: memberId
-	});
+	const assignment = Assignment.build(req.body);
 
 	try {
 		await assignment.save();
