@@ -1,15 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import {
-  BehaviorSubject,
-  Observable,
-  Subject,
-  map,
-  switchMap,
-  take,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map, take } from 'rxjs';
 import { API_URL } from '../shared/constants';
 import { Project } from '../interfaces/Project';
 import { Member } from '../interfaces/Member';
@@ -33,9 +24,7 @@ export class ApiService {
     private http: HttpClient,
     private router: Router,
     private toastr: ToastrService
-  ) {
-    this.getAssignmentsList(this.currentProject() === 'all' ? undefined : this.currentProject());
-  }
+  ) {}
 
   ngOnDestroy() {
     this.destroy$.next(true);
@@ -53,6 +42,10 @@ export class ApiService {
         })
       )
       .subscribe();
+
+    this.getAssignmentsList(
+      this.currentProject() === 'all' ? undefined : this.currentProject()
+    );
   }
 
   public getAssignmentsList(id?: string) {
@@ -73,11 +66,13 @@ export class ApiService {
   }
 
   public createAssignment(payload: any) {
+    console.log(payload);
     this.http
       .post<Assignment>(`${assignmentsEndpointUrl}`, payload)
       .pipe(take(1))
       .subscribe((data) => {
         if (data) {
+          this.assignments$.next;
           this.toastr.success('Assignment was successfully created', 'Done');
           this.router.navigate(['/']);
         }

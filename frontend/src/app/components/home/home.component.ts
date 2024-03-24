@@ -28,7 +28,7 @@ import { Assignment } from '../../interfaces/Assignment';
   ],
 })
 export class HomeComponent {
-  public currentProject = this.service.currentProject
+  public currentProject = this.service.currentProject;
   public data$: Observable<HomePageData> = combineLatest({
     projects: this.service.projects$,
     assignments: this.service.assignments$,
@@ -51,8 +51,9 @@ export class HomeComponent {
     this.service.getInitialData();
   }
 
-  onDelete(id: number) {
+  onDelete(id: number, event: Event) {
     this.service.deleteAssignment(id);
+    event.stopPropagation();
   }
 
   onSelectChange(id: string) {
