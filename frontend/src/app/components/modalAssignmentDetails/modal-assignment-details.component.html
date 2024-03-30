@@ -1,8 +1,24 @@
 <ng-container *ngIf="data.assignment as assignment">
-  
-  ID : {{ assignment._id }} Name : {{ assignment.name }}
+  <div class="modal-details-window">
+    <h3 mat-dialog-title class="header">
+      Projects / {{ assignment.project?.name }} / {{ assignment._id }}
+    </h3>
+    <mat-dialog-content>
+      <div class="name">Name : {{ assignment.name }}</div>
+      <div class="description">{{ assignment.description }}</div>
+      <div class="side-section">side</div>
+
+      <hr />
+      <div class="btn-close-container">
+        <button
+          class="btn-close"
+          mat-flat-button
+          color="warn"
+          (click)="dialogRef.close()"
+        >
+          Close
+        </button>
+      </div>
+    </mat-dialog-content>
+  </div>
 </ng-container>
-
-<hr />
-
-<button (click)="dialogRef.close()">Close</button>

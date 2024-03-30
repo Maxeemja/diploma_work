@@ -1,8 +1,23 @@
-:host {
+.modal-details-window {
+  animation: custom-dialog-enter 1s ease;
+  max-width: 500px;
   display: block;
   background: #fff;
   border-radius: 8px;
   padding: 16px;
-  max-width: 500px;
-  animation: custom-dialog-enter 1s ease;
+
+
+  [mat-dialog-title] {
+    font-size: 20px;
+  }
+  .nav-header {
+    font-size: 14px;
+  }
+
+  
+  .btn-close-container {
+    display: flex;
+    justify-content: end;
+  }
+
 }
