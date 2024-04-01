@@ -1,9 +1,6 @@
 <ng-container *ngIf="data$ | async as data">
-  <ng-container *ngIf="!data.assignments.length">
-    <div class="empty">Looks like nothing is here...</div></ng-container
-  >
   <div class="container">
-    <div class="project-container">
+    <div class="project-container" *ngIf="data.assignments.length; else empty">
       <mat-form-field class="selector">
         <mat-label>Choose Project</mat-label>
         <mat-select
@@ -132,3 +129,12 @@
     </div>
   </div>
 </ng-container>
+
+<ng-template #empty>
+  <div class="empty-wrapper">
+    <button mat-raised-button color="primary" [routerLink]="['create']">
+      + New task
+    </button>
+  </div>
+  <div class="empty">Looks like nothing is here...</div></ng-template
+>
