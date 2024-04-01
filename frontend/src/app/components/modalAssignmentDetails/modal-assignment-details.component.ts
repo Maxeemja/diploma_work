@@ -17,6 +17,7 @@ import {
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'modal-assignment-details',
@@ -30,14 +31,22 @@ import {
     MatDialogContent,
     MatDialogActions,
     MatDialogClose,
+    RouterModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalAssignmentDetailsComponent implements OnInit {
   constructor(
     @Inject(DIALOG_DATA) public data: { assignment: Assignment },
-    public dialogRef: DialogRef
+    public dialogRef: DialogRef,
+    private router: Router
   ) {}
+
+  goToEdit(id?: string) {
+    if (!id) return;
+    this.router.navigate(['edit', id]);
+    this.dialogRef.close();
+  }
 
   ngOnInit(): void {}
 }

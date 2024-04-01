@@ -1,23 +1,40 @@
 .modal-details-window {
   animation: custom-dialog-enter 1s ease;
-  max-width: 500px;
+  width: auto;
+  min-width: 400px;
   display: block;
   background: #fff;
-  border-radius: 8px;
-  padding: 16px;
+  border-radius: 10px;
+  padding: 20px;
 
 
-  [mat-dialog-title] {
+  .actions-container {
+    display: flex;
+    gap: 10px;
+  }
+
+  .name {
+    font-weight: 600;
     font-size: 20px;
   }
-  .nav-header {
-    font-size: 14px;
+
+  [mat-dialog-title] {
+    font-size: 16px;
+    margin-bottom: 20px;
   }
 
-  
-  .btn-close-container {
+  .modal-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+
+  .actions-container {
     display: flex;
     justify-content: end;
+    align-items: center;
   }
+
 
 }
