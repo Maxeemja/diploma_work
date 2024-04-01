@@ -7,10 +7,10 @@ import { RouterLink } from '@angular/router';
 import { GroupPipe } from '../../pipes/group.pipe';
 import { MatSelectModule } from '@angular/material/select';
 import { Observable, combineLatest } from 'rxjs';
-import { HomePageData } from '../../interfaces/HomePageData';
+import { HomePageData } from '../../shared/interfaces/HomePageData';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { ModalAssignmentDetailsComponent } from '../modalAssignmentDetails/modal-assignment-details.component';
-import { Assignment } from '../../interfaces/Assignment';
+import { Assignment } from '../../shared/interfaces/Assignment';
 
 @Component({
   selector: 'app-home',

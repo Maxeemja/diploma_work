@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root',
 })
 export class HandleErrorService {
-  constructor(private toaster: ToastrService) {}
+  private toastr = inject(ToastrService);
 
   // Handling HTTP Errors using Toaster
   public handleError(err: HttpErrorResponse) {
@@ -19,35 +19,35 @@ export class HandleErrorService {
     switch (err.status) {
       case 400:
         errorMessage = `${err.status}: Bad Request.`;
-        this.toaster.error(errorMessage);
+        this.toastr.error(errorMessage);
         break;
       case 401:
         errorMessage = `${err.status}: You are unauthorized to do this action.`;
-        this.toaster.error(errorMessage);
+        this.toastr.error(errorMessage);
         break;
       case 403:
         errorMessage = `${err.status}: You don't have permission to access the requested resource.`;
-        this.toaster.error(errorMessage);
+        this.toastr.error(errorMessage);
         break;
       case 404:
         errorMessage = `${err.status}: The requested resource does not exist.`;
-        this.toaster.error(errorMessage);
+        this.toastr.error(errorMessage);
         break;
       case 412:
         errorMessage = `${err.status}: Precondition Failed.`;
-        this.toaster.error(errorMessage);
+        this.toastr.error(errorMessage);
         break;
       case 500:
         errorMessage = `${err.status}: Internal Server Error.`;
-        this.toaster.error(errorMessage);
+        this.toastr.error(errorMessage);
         break;
       case 503:
         errorMessage = `${err.status}: The requested service is not available.`;
-        this.toaster.error(errorMessage);
+        this.toastr.error(errorMessage);
         break;
       default:
         errorMessage = `Something went wrong! Probably server is dead`;
-        this.toaster.error(errorMessage);
+        this.toastr.error(errorMessage);
     }
   }
 }

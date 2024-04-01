@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, map, take } from 'rxjs';
 import { API_URL } from '../shared/constants';
-import { Project } from '../interfaces/Project';
-import { Member } from '../interfaces/Member';
-import { Assignment } from '../interfaces/Assignment';
+import { Project } from '../shared/interfaces/Project';
+import { Member } from '../shared/interfaces/Member';
+import { Assignment } from '../shared/interfaces/Assignment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,22 +14,15 @@ const assignmentsEndpointUrl = `${API_URL}/assignments`;
   providedIn: 'root',
 })
 export class ApiService {
+  // injecting dependencies
+  private http = inject(HttpClient);
+  private router = inject(Router);
+  private toastr = inject(ToastrService);
+
   public currentProject = signal('all');
   public projects$ = new BehaviorSubject<Project[]>([]);
   public members$ = new BehaviorSubject<Member[]>([]);
   public assignments$ = new BehaviorSubject<Assignment[]>([]);
-  private destroy$ = new Subject<boolean>();
-
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private toastr: ToastrService
-  ) {}
-
-  ngOnDestroy() {
-    this.destroy$.next(true);
-    this.destroy$.complete();
-  }
 
   public getInitialData() {
     this.http
@@ -88,6 +81,7 @@ export class ApiService {
       .pipe(take(1))
       .subscribe((data) => {
         if (data) {
+          this.toastr.success('Assignment was successfully updated', 'Done');
           this.router.navigate(['/']);
         }
       });

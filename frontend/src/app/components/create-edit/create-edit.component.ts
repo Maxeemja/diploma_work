@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ApiService } from '../../services/api.service';
 import { take } from 'rxjs';
-import { Assignment } from '../../interfaces/Assignment';
+import { Assignment } from '../../shared/interfaces/Assignment';
 
 @Component({
   selector: 'app-create-edit',

@@ -3,9 +3,9 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
-import { HandleErrorsInterceptor } from './interceptors/handle-errors.interceptor';
+import { HandleErrorsInterceptor } from './shared/interceptors/handle-errors.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SpinnerInterceptor } from './interceptors/spinner-loading.interceptor';
+import { SpinnerInterceptor } from './shared/interceptors/spinner-loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
