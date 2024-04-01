@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
-import { GroupPipe } from '../../pipes/group.pipe';
 import { MatSelectModule } from '@angular/material/select';
 import { Observable, combineLatest } from 'rxjs';
 import { HomePageData } from '../../shared/interfaces/HomePageData';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { ModalAssignmentDetailsComponent } from '../modalAssignmentDetails/modal-assignment-details.component';
 import { Assignment } from '../../shared/interfaces/Assignment';
+import { displayedColumns } from '../../shared/constants';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -22,30 +23,24 @@ import { Assignment } from '../../shared/interfaces/Assignment';
     MatButtonModule,
     MatTableModule,
     RouterLink,
-    GroupPipe,
     MatSelectModule,
     DialogModule,
   ],
 })
 export class HomeComponent {
+  // injection
+  private service = inject(ApiService);
+  public dialog = inject(Dialog);
+
+  // sources
   public currentProject = this.service.currentProject;
-  public data$: Observable<HomePageData> = combineLatest({
+  public vm$: Observable<HomePageData> = combineLatest({
     projects: this.service.projects$,
     assignments: this.service.assignments$,
   });
 
-  public displayedColumns = [
-    'projectName',
-    'name',
-    'description',
-    'status',
-    'priority',
-    'assignee',
-    'deadline',
-    'actions',
-  ];
-
-  constructor(private service: ApiService, public dialog: Dialog) {}
+  // table dispayed columns
+  displayedColumns = displayedColumns;
 
   ngOnInit() {
     this.service.getInitialData();
@@ -60,9 +55,9 @@ export class HomeComponent {
     this.currentProject.set(id);
     this.service.getAssignmentsList(id !== 'all' ? id : undefined);
     if (id === 'all') {
-      this.displayedColumns = ['projectName', ...this.displayedColumns];
+      this.displayedColumns = ['projectName', ...displayedColumns];
     } else {
-      this.displayedColumns = this.displayedColumns.filter(
+      this.displayedColumns = displayedColumns.filter(
         (col) => col !== 'projectName'
       );
     }

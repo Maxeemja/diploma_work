@@ -1,23 +1,20 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
-import { Assignment } from '../../interfaces/Assignment';
+import { Assignment } from '../../shared/interfaces/Assignment';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
   MatDialogTitle,
   MatDialogContent,
   MatDialogActions,
   MatDialogClose,
 } from '@angular/material/dialog';
 import { Router, RouterModule } from '@angular/router';
+import { Status, Priority } from '../../shared/interfaces/Assignment';
+import { MatSelectModule } from '@angular/material/select';
+import { ApiService } from '../../services/api.service';
+import { MatIconModule } from '@angular/material/icon';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'modal-assignment-details',
@@ -32,15 +29,22 @@ import { Router, RouterModule } from '@angular/router';
     MatDialogActions,
     MatDialogClose,
     RouterModule,
+    MatSelectModule,
+    MatIconModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ModalAssignmentDetailsComponent implements OnInit {
-  constructor(
-    @Inject(DIALOG_DATA) public data: { assignment: Assignment },
-    public dialogRef: DialogRef,
-    private router: Router
-  ) {}
+export class ModalAssignmentDetailsComponent {
+  // injection
+  public data: Record<'assignment', Assignment> = inject(DIALOG_DATA);
+  public dialogRef = inject(DialogRef);
+  private router = inject(Router);
+  private service = inject(ApiService);
+  public utilsService = inject(UtilsService);
+
+  // import enums
+  public status = Status;
+  public priority = Priority;
 
   goToEdit(id?: string) {
     if (!id) return;
@@ -48,5 +52,15 @@ export class ModalAssignmentDetailsComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  ngOnInit(): void {}
+  onStatusChange(value: number) {
+    console.log(value);
+    this.service.updateAssignment({ ...this.data.assignment, status: value });
+  }
+
+  ngOnDestroy() {
+    const isAllProjectsSelected = this.service.currentProject() === 'all';
+    this.service.getAssignmentsList(
+      isAllProjectsSelected ? undefined : this.service.currentProject()
+    );
+  }
 }

@@ -1,13 +1,13 @@
-<ng-container *ngIf="data$ | async as data">
+<ng-container *ngIf="vm$ | async as vm">
   <div class="container">
-    <div class="project-container" *ngIf="data.assignments.length; else empty">
+    <div class="project-container" *ngIf="vm.assignments.length; else empty">
       <mat-form-field class="selector">
         <mat-label>Choose Project</mat-label>
         <mat-select
           [value]="currentProject()"
           (valueChange)="onSelectChange($event)"
         >
-          @for (project of data.projects; track project) {
+          @for (project of vm.projects; track project) {
           <mat-option [value]="project.id">{{ project.name }}</mat-option>
           }
           <mat-option value="all">All</mat-option>
@@ -19,7 +19,7 @@
           <h4 class="title">
             {{
               currentProject() !== "all"
-                ? data.assignments[0].project?.name
+                ? vm.assignments[0].project?.name
                 : "All"
             }}
           </h4>
@@ -30,11 +30,7 @@
           </div>
         </div>
 
-        <table
-          mat-table
-          [dataSource]="data.assignments"
-          class="mat-elevation-z8"
-        >
+        <table mat-table [dataSource]="vm.assignments" class="mat-elevation-z8">
           <ng-container
             *ngIf="currentProject() === 'all'"
             matColumnDef="projectName"

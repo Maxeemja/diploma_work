@@ -5,13 +5,37 @@
     </h3>
     <mat-dialog-content>
       <div class="modal-content-wrapper">
-        <section>
+        <section class="section-main">
           <p class="name">{{ assignment.name | titlecase }}</p>
-          <div>Description:</div>
+          <div class="description-label">Description:</div>
           <div class="description">{{ assignment.description }}</div>
         </section>
         <section>
-          <div class="side-section">side</div>
+          <div class="section-sub">
+            <mat-form-field class="selector">
+              <mat-select
+                [value]="assignment.status"
+                (valueChange)="onStatusChange($event)"
+              >
+                <mat-option [value]="0">ToDo</mat-option>
+                <mat-option [value]="1">InProgress</mat-option>
+                <mat-option [value]="2">Done</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <p class="block-assignee">
+              <span>Assignee:</span> {{ assignment.assignee?.firstName }}
+              {{ assignment.assignee?.secondName }}
+            </p>
+            <p class="block-priority">
+              <span>Priority:</span> {{ priority[assignment.priority] }}
+              <mat-icon
+                aria-hidden="false"
+                [fontIcon]="
+                  utilsService.getPriorityIconName(assignment.priority)
+                "
+              ></mat-icon>
+            </p>
+          </div>
         </section>
       </div>
 

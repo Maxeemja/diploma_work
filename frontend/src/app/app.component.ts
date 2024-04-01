@@ -1,10 +1,10 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { ApiService } from './services/api.service';
 import { HomeComponent } from './components/home/home.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ModalAssignmentDetailsComponent } from './components/modalAssignmentDetails/modal-assignment-details.component';
+import { CreateEditComponent } from './components/create-edit/create-edit.component';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +12,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
   imports: [
     CommonModule,
     RouterOutlet,
-    HttpClientModule,
     HomeComponent,
+    ModalAssignmentDetailsComponent,
+    CreateEditComponent,
     NgxSpinnerModule,
   ],
-  providers: [ApiService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
