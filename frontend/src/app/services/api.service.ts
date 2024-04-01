@@ -36,14 +36,17 @@ export class ApiService {
       )
       .subscribe();
 
-    this.getAssignmentsList(
-      this.currentProject() === 'all' ? undefined : this.currentProject()
-    );
+    this.getAssignmentsList();
   }
 
-  public getAssignmentsList(id?: string) {
+  public getAssignmentsList() {
+    const isAllSelected = this.currentProject() === 'all';
     this.http
-      .get<Assignment[]>(`${assignmentsEndpointUrl}${id ? `/of/${id}` : ''}`)
+      .get<Assignment[]>(
+        `${assignmentsEndpointUrl}${
+          !isAllSelected ? `/of/${this.currentProject()}` : ''
+        }`
+      )
       .pipe(
         take(1),
         map((data) => {

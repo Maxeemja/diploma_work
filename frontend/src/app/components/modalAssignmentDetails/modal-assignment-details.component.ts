@@ -58,9 +58,6 @@ export class ModalAssignmentDetailsComponent {
   }
 
   ngOnDestroy() {
-    const isAllProjectsSelected = this.service.currentProject() === 'all';
-    this.service.getAssignmentsList(
-      isAllProjectsSelected ? undefined : this.service.currentProject()
-    );
+    this.service.getAssignmentsList();
   }
 }

@@ -1,28 +1,20 @@
 <ng-container *ngIf="vm$ | async as vm">
   <div class="container">
     <div class="project-container" *ngIf="vm.assignments.length; else empty">
-      <mat-form-field class="selector">
-        <mat-label>Choose Project</mat-label>
-        <mat-select
-          [value]="currentProject()"
-          (valueChange)="onSelectChange($event)"
-        >
-          @for (project of vm.projects; track project) {
-          <mat-option [value]="project.id">{{ project.name }}</mat-option>
-          }
-          <mat-option value="all">All</mat-option>
-        </mat-select>
-      </mat-form-field>
-
       <div>
         <div class="header-group">
-          <h4 class="title">
-            {{
-              currentProject() !== "all"
-                ? vm.assignments[0].project?.name
-                : "All"
-            }}
-          </h4>
+          <mat-form-field class="selector">
+            <mat-label>Filter By Project</mat-label>
+            <mat-select
+              [value]="currentProject()"
+              (valueChange)="onSelectChange($event)"
+            >
+              @for (project of vm.projects; track project) {
+              <mat-option [value]="project.id">{{ project.name }}</mat-option>
+              }
+              <mat-option value="all">All</mat-option>
+            </mat-select>
+          </mat-form-field>
           <div class="btn-wrapper">
             <button mat-raised-button color="primary" [routerLink]="['create']">
               + New task
