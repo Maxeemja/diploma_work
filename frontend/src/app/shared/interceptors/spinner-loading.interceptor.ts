@@ -1,50 +1,39 @@
-import { Injectable, Renderer2, RendererFactory2, inject } from '@angular/core';
-import {
-  HttpInterceptor,
-  HttpRequest,
-  HttpEvent,
-  HttpResponse,
-  HttpHandler,
-} from '@angular/common/http';
+import { inject } from '@angular/core';
+import { HttpInterceptorFn, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpHandlerFn } from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class SpinnerInterceptor implements HttpInterceptor {
-  // deps injection
-  private spinner = inject(NgxSpinnerService);
+export const spinnerLoadingInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn) => {
+  const spinner = inject(NgxSpinnerService);
+  const start = performance.now();
 
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
-    this.showLoader();
-    return next.handle(req).pipe(
-      tap(
-        (event: HttpEvent<any>) => {
-          if (event instanceof HttpResponse) {
-            this.onEnd();
-          }
-        },
-        (err: any) => {
-          this.onEnd();
+  showLoader();
+
+  return next(req).pipe(
+    tap(
+      (event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse) {
+          onEnd();
         }
-      )
-    );
+      },
+      (err: any) => {
+        onEnd();
+      }
+    ),
+    finalize(() => {
+      onEnd();
+    })
+  );
+
+  function onEnd(): void {
+    hideLoader();
   }
 
-  private onEnd(): void {
-    this.hideLoader();
+  function showLoader(): void {
+    spinner.show();
   }
 
-  private showLoader(): void {
-    this.spinner.show();
+  function hideLoader(): void {
+    spinner.hide();
   }
-
-  private hideLoader(): void {
-    this.spinner.hide();
-  }
-}
+};
