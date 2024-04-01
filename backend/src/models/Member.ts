@@ -35,7 +35,9 @@ memberSchema.statics.build = (attr: IMember) => {
 	return new Member(attr);
 };
 
-const Member = mongoose.model<MemberDoc, memberModelInterface>('Member', memberSchema);
-
+const Member = mongoose.model<MemberDoc, memberModelInterface>(
+	'Member',
+	memberSchema
+);
 
 export { Member };

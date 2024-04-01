@@ -6,6 +6,7 @@ export interface Assignment {
   _id: string;
   name: string;
   description: string;
+  number: string;
   status: Status;
   priority: Priority;
   deadline: Date;

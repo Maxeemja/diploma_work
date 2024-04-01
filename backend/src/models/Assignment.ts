@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { IMember } from './Member';
 import { IProject } from './Project';
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 enum Status {
 	ToDo,
@@ -22,7 +23,8 @@ export interface IAssignment {
 	priority?: Priority;
 	deadline: Date;
 	project: IProject;
-  assignee?: IMember
+	number: string;
+	assignee?: IMember;
 }
 
 interface assignmentModelInterface extends mongoose.Model<any> {
@@ -45,8 +47,14 @@ const assignmentSchema = new mongoose.Schema({
 		default: () => Date.now()
 	},
 	assignee: { type: mongoose.Schema.Types.ObjectId, ref: 'Member' },
-	project: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Project' }
+	project: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true,
+		ref: 'Project'
+	}
 });
+
+assignmentSchema.plugin(AutoIncrement, { inc_field: 'number' });
 
 assignmentSchema.statics.build = (attr: IAssignment) => {
 	return new Assignment(attr);
