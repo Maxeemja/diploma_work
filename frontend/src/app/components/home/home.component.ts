@@ -32,13 +32,10 @@ export class HomeComponent {
   private service = inject(ApiService);
   public dialog = inject(Dialog);
 
-  // sources
+  // selectors
   public currentProject = this.service.currentProject;
-  public vm$: Observable<HomePageData> = combineLatest({
-    projects: this.service.projects$,
-    assignments: this.service.assignments$,
-  });
-
+  public projects = this.service.projects;
+  public assignments = this.service.assignments;
   // table dispayed columns
   displayedColumns = displayedColumns;
 

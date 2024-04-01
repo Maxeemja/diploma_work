@@ -20,9 +20,9 @@ export class ApiService {
   private toastr = inject(ToastrService);
 
   public currentProject = signal('all');
-  public projects$ = new BehaviorSubject<Project[]>([]);
-  public members$ = new BehaviorSubject<Member[]>([]);
-  public assignments$ = new BehaviorSubject<Assignment[]>([]);
+  public projects = signal<Project[]>([]);
+  public members = signal<Member[]>([]);
+  public assignments = signal<Assignment[]>([]);
 
   public getInitialData() {
     this.http
@@ -31,7 +31,7 @@ export class ApiService {
         take(1),
         map((data) => {
           const payload = data.map((item) => ({ ...item, id: item._id }));
-          this.projects$.next(payload);
+          this.projects.set(payload);
         })
       )
       .subscribe();
@@ -51,7 +51,7 @@ export class ApiService {
         take(1),
         map((data) => {
           const payload = data.map((item) => ({ ...item, id: item._id }));
-          this.assignments$.next(payload);
+          this.assignments.set(payload);
         })
       )
       .subscribe();
@@ -68,7 +68,6 @@ export class ApiService {
       .pipe(take(1))
       .subscribe((data) => {
         if (data) {
-          this.assignments$.next;
           this.toastr.success('Assignment was successfully created', 'Done');
           this.router.navigate(['/']);
         }
@@ -98,7 +97,7 @@ export class ApiService {
         })
         .pipe(take(1))
         .subscribe((data: Assignment[]) => {
-          this.assignments$.next(data);
+          this.assignments.set(data);
           this.toastr.success(
             `Assignment with ID ${id} was successfully deleted`,
             'Done'
@@ -114,7 +113,7 @@ export class ApiService {
         take(1),
         map((data) => {
           const payload = data.map((item) => ({ ...item, id: item._id }));
-          this.projects$.next(payload);
+          this.projects.set(payload);
         })
       )
       .subscribe();
@@ -127,7 +126,7 @@ export class ApiService {
         take(1),
         map((data) => {
           const payload = data.map((item) => ({ ...item, id: item._id }));
-          this.members$.next(payload);
+          this.members.set(payload);
         })
       )
       .subscribe();

@@ -35,8 +35,8 @@ import { Assignment } from '../../shared/interfaces/Assignment';
   styleUrl: './create-edit.component.scss',
 })
 export class CreateEditComponent {
-  public members$ = this.service.members$;
-  public projects$ = this.service.projects$;
+  public members = this.service.members;
+  public projects = this.service.projects;
   public isEdit = !!this.route.snapshot.params['id'];
   assignmentId: string = '';
 
