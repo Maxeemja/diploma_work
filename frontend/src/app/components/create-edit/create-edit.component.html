@@ -1,4 +1,9 @@
 <div class="container">
+  <div class="header-arrow">
+    <a routerLink="/">
+      <mat-icon aria-hidden="false" fontIcon="arrow_back"></mat-icon> Go back</a
+    >
+  </div>
   <h3 class="title">{{ isEdit ? "Edit" : "Create" }}</h3>
 
   <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">

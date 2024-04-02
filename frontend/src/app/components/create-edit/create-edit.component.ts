@@ -16,6 +16,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ApiService } from '../../services/api.service';
 import { take } from 'rxjs';
 import { Assignment } from '../../shared/interfaces/Assignment';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-create-edit',
@@ -30,6 +31,7 @@ import { Assignment } from '../../shared/interfaces/Assignment';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatIconModule
   ],
   templateUrl: './create-edit.component.html',
   styleUrl: './create-edit.component.scss',
