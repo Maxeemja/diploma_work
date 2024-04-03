@@ -1,9 +1,18 @@
 import { inject } from '@angular/core';
-import { HttpInterceptorFn, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpHandlerFn } from '@angular/common/http';
+import {
+  HttpInterceptorFn,
+  HttpRequest,
+  HttpEvent,
+  HttpResponse,
+  HttpHandlerFn,
+} from '@angular/common/http';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { finalize, tap } from 'rxjs/operators';
 
-export const spinnerLoadingInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn) => {
+export const spinnerLoadingInterceptor: HttpInterceptorFn = (
+  req: HttpRequest<any>,
+  next: HttpHandlerFn
+) => {
   const spinner = inject(NgxSpinnerService);
   const start = performance.now();
 

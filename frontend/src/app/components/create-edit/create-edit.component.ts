@@ -1,15 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -31,7 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatIconModule
+    MatIconModule,
   ],
   templateUrl: './create-edit.component.html',
   styleUrl: './create-edit.component.scss',
@@ -66,7 +61,6 @@ export class CreateEditComponent {
         .getAssignment(this.route.snapshot.params['id'])
         .pipe(take(1))
         .subscribe((data: Assignment) => {
-          console.log(data)
           this.myForm.setValue({
             name: data?.name,
             description: data?.description,

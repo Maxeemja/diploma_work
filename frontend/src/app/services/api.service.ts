@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, map, take } from 'rxjs';
+import { Observable, map, take } from 'rxjs';
 import { API_URL } from '../shared/constants';
 import { Project } from '../shared/interfaces/Project';
 import { Member } from '../shared/interfaces/Member';

@@ -3,5 +3,5 @@ export interface Member {
   _id: string,
   firstName: string,
   secondName: string,
-  isBusy: boolean
+  isBusy?: boolean
 }
