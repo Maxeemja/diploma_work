@@ -8,9 +8,14 @@
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
-  height: 30px;
-  padding: 10px;
+  right: 0;
+  background: #9ea6d4;
+
+  padding: 20px;
+  &-container {
+
+  }
 }
