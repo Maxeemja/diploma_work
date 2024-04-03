@@ -10,7 +10,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ApiService } from '../../services/api.service';
 import { take } from 'rxjs';
-import { Assignment } from '../../shared/interfaces/Assignment';
+import {
+  Assignment,
+  Priority,
+  Status,
+} from '../../shared/interfaces/Assignment';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -36,6 +40,10 @@ export class CreateEditComponent {
   public projects = this.service.projects;
   public isEdit = !!this.route.snapshot.params['id'];
   assignmentId: string = '';
+
+  // import enums
+  public status = Status;
+  public priority = Priority;
 
   constructor(
     private route: ActivatedRoute,

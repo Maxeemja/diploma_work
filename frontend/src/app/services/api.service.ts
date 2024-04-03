@@ -68,7 +68,7 @@ export class ApiService {
       .pipe(take(1))
       .subscribe((data) => {
         if (data) {
-          this.toastr.success('Assignment was successfully created', 'Done');
+          this.toastr.success('Завдання було успішно створено', 'Готово');
           this.router.navigate(['/']);
         }
       });
@@ -83,14 +83,14 @@ export class ApiService {
       .pipe(take(1))
       .subscribe((data) => {
         if (data) {
-          this.toastr.success('Assignment was successfully updated', 'Done');
+          this.toastr.success('Завдання було успішно оновлено', 'Готово');
           this.router.navigate(['/']);
         }
       });
   }
 
   public deleteAssignment(id: number) {
-    if (confirm('Do u wanna delete this item?')) {
+    if (confirm('Ви бажаєте видалити це завдання?')) {
       this.http
         .delete<Assignment[]>(`${assignmentsEndpointUrl}/delete/${id}`, {
           body: { currProjId: this.currentProject() },
@@ -99,8 +99,8 @@ export class ApiService {
         .subscribe((data: Assignment[]) => {
           this.assignments.set(data);
           this.toastr.success(
-            `Assignment with ID ${id} was successfully deleted`,
-            'Done'
+            `Завдання з ID ${id} було успішно видалено!`,
+            'Готово'
           );
         });
     } else return;

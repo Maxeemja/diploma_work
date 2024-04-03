@@ -15,12 +15,12 @@ export interface Assignment {
 }
 
 export enum Status {
-  ToDo = 0,
-  InProgress = 1,
-  Done = 2,
+  'Не почато',
+  'В процесі',
+  'Виконано',
 }
 export enum Priority {
-  Low = 0,
-  Medium = 1,
-  High = 2,
+  'Низький',
+  'Звичайний',
+  'Високий',
 }

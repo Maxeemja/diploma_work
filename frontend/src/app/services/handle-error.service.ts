@@ -12,7 +12,7 @@ export class HandleErrorService {
     let errorMessage: string;
     if (err.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
-      errorMessage = `An error occurred: ${err.error.message}`;
+      errorMessage = `Виникла помилка: ${err.error.message}`;
     } else {
     }
     // The backend returned an unsuccessful response code.
@@ -46,7 +46,7 @@ export class HandleErrorService {
         this.toastr.error(errorMessage);
         break;
       default:
-        errorMessage = `Something went wrong! Probably server is dead`;
+        errorMessage = `Щось пішло не так :( Можливо сервер вмер`;
         this.toastr.error(errorMessage);
     }
   }

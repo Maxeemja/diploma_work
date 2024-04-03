@@ -7,7 +7,11 @@ import { RouterLink } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { ModalAssignmentDetailsComponent } from '../modalAssignmentDetails/modal-assignment-details.component';
-import { Assignment } from '../../shared/interfaces/Assignment';
+import {
+  Assignment,
+  Priority,
+  Status,
+} from '../../shared/interfaces/Assignment';
 import { displayedColumns } from '../../shared/constants';
 
 @Component({
@@ -35,6 +39,9 @@ export class HomeComponent {
   public assignments = this.service.assignments;
   // table dispayed columns
   displayedColumns = displayedColumns;
+  // import enums
+  public status = Status;
+  public priority = Priority;
 
   ngOnInit() {
     this.service.getInitialData();

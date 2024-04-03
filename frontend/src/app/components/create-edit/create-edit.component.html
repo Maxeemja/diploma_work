@@ -1,42 +1,42 @@
 <div class="container">
   <div class="header-arrow">
     <a routerLink="/">
-      <mat-icon aria-hidden="false" fontIcon="arrow_back"></mat-icon> Go back</a
+      <mat-icon aria-hidden="false" fontIcon="arrow_back"></mat-icon> Назад</a
     >
   </div>
-  <h3 class="title">{{ isEdit ? "Edit" : "Create" }}</h3>
+  <h3 class="title">{{ isEdit ? "Редагувати" : "Створити" }}</h3>
 
   <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="example-full-width">
-      <mat-label>Name</mat-label>
+      <mat-label>Назва</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
-      <mat-label>Description</mat-label>
+      <mat-label>Опис</mat-label>
       <textarea matInput formControlName="description"></textarea>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Status</mat-label>
+      <mat-label>Статус</mat-label>
       <mat-select formControlName="status">
-        <mat-option [value]="0">ToDo</mat-option>
-        <mat-option [value]="1">In Progress</mat-option>
-        <mat-option [value]="2">Done</mat-option>
+        <mat-option [value]="0">{{ status[0] }}</mat-option>
+        <mat-option [value]="1">{{ status[1] }}</mat-option>
+        <mat-option [value]="2">{{ status[2] }}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Priority</mat-label>
+      <mat-label>Пріоритет</mat-label>
       <mat-select formControlName="priority">
-        <mat-option [value]="0">Low</mat-option>
-        <mat-option [value]="1">Medium</mat-option>
-        <mat-option [value]="2">High</mat-option>
+        <mat-option [value]="0">{{ priority[0] }}</mat-option>
+        <mat-option [value]="1">{{ priority[1] }}</mat-option>
+        <mat-option [value]="2">{{ priority[2] }}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Deadline</mat-label>
+      <mat-label>Дедлайн</mat-label>
       <input formControlName="deadline" matInput [matDatepicker]="picker" />
       <mat-datepicker-toggle
         matIconSuffix
@@ -46,7 +46,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Assignee</mat-label>
+      <mat-label>Виконавець</mat-label>
       <mat-select formControlName="assignee">
         <mat-option *ngFor="let member of members()" [value]="member._id"
           >{{ member.firstName }} {{ member.secondName }}</mat-option
@@ -55,7 +55,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Project ID</mat-label>
+      <mat-label>ID Проекта</mat-label>
       <mat-select formControlName="project">
         <mat-option *ngFor="let project of projects()" [value]="project._id">{{
           project.name
@@ -64,7 +64,7 @@
     </mat-form-field>
 
     <button mat-flat-button color="primary" type="submit">
-      {{ this.isEdit ? "Edit" : "Create" }}
+      {{ this.isEdit ? "Редагувати" : "Створити" }}
     </button>
   </form>
 </div>

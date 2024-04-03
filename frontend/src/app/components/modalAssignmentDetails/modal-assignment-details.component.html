@@ -7,7 +7,7 @@
       <div class="modal-content-wrapper">
         <section class="section-main">
           <p class="name">{{ assignment.name | titlecase }}</p>
-          <div class="description-label">Description:</div>
+          <div class="description-label">Опис:</div>
           <div class="description">{{ assignment.description }}</div>
         </section>
         <section>
@@ -17,17 +17,17 @@
                 [value]="assignment.status"
                 (valueChange)="onStatusChange($event)"
               >
-                <mat-option [value]="0">ToDo</mat-option>
-                <mat-option [value]="1">InProgress</mat-option>
-                <mat-option [value]="2">Done</mat-option>
+                <mat-option [value]="0">{{ status[0] }}</mat-option>
+                <mat-option [value]="1">{{ status[1] }}</mat-option>
+                <mat-option [value]="2">{{ status[2] }}</mat-option>
               </mat-select>
             </mat-form-field>
             <p class="block-assignee">
-              <span>Assignee:</span> {{ assignment.assignee?.firstName }}
+              <span>Виконавець:</span> {{ assignment.assignee?.firstName }}
               {{ assignment.assignee?.secondName }}
             </p>
             <p class="block-priority">
-              <span>Priority:</span> {{ priority[assignment.priority] }}
+              <span>Пріоритет:</span> {{ priority[assignment.priority] }}
               <mat-icon
                 aria-hidden="false"
                 [fontIcon]="
@@ -46,10 +46,10 @@
           color="accent"
           (click)="goToEdit(assignment.id)"
         >
-          Edit
+          Редагувати
         </button>
         <button mat-flat-button color="warn" (click)="dialogRef.close()">
-          Close
+          Закрити
         </button>
       </div>
     </mat-dialog-content>
