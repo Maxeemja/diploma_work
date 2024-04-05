@@ -30,8 +30,7 @@ export class ApiService {
       .pipe(
         take(1),
         map((data) => {
-          const payload = data.map((item) => ({ ...item, id: item._id }));
-          this.projects.set(payload);
+          this.projects.set(data);
         })
       )
       .subscribe();
@@ -50,8 +49,8 @@ export class ApiService {
       .pipe(
         take(1),
         map((data) => {
-          const payload = data.map((item) => ({ ...item, id: item._id }));
-          this.assignments.set(payload);
+
+          this.assignments.set(data);
         })
       )
       .subscribe();
@@ -62,7 +61,6 @@ export class ApiService {
   }
 
   public createAssignment(payload: any) {
-    console.log(payload);
     this.http
       .post<Assignment>(`${assignmentsEndpointUrl}`, payload)
       .pipe(take(1))
@@ -112,8 +110,7 @@ export class ApiService {
       .pipe(
         take(1),
         map((data) => {
-          const payload = data.map((item) => ({ ...item, id: item._id }));
-          this.projects.set(payload);
+          this.projects.set(data);
         })
       )
       .subscribe();
@@ -125,8 +122,7 @@ export class ApiService {
       .pipe(
         take(1),
         map((data) => {
-          const payload = data.map((item) => ({ ...item, id: item._id }));
-          this.members.set(payload);
+          this.members.set(data);
         })
       )
       .subscribe();

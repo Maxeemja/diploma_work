@@ -53,7 +53,6 @@ export class ModalAssignmentDetailsComponent {
   }
 
   onStatusChange(value: number) {
-    console.log(value);
     this.service.updateAssignment({ ...this.data.assignment, status: value });
   }
 

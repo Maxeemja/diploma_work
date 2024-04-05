@@ -49,6 +49,7 @@ export class HomeComponent {
 
   onDelete(id: number, event: Event) {
     this.service.deleteAssignment(id);
+    console.log(id);
     event.stopPropagation();
   }
 
@@ -56,11 +57,11 @@ export class HomeComponent {
     this.currentProject.set(id);
     this.service.getAssignmentsList();
     if (id === 'all') {
-      this.displayedColumns = ['projectName', ...displayedColumns];
+      this.displayedColumns = ['projectName', ...this.displayedColumns];
     } else {
-      this.displayedColumns = displayedColumns.filter(
-        (col) => col !== 'projectName'
-      );
+      this.displayedColumns = this.displayedColumns.filter((col) => {
+        return col !== 'projectName';
+      });
     }
   }
 

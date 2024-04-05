@@ -1,31 +1,28 @@
 <div class="container">
-  <div class="project-container" *ngIf="assignments().length; else empty">
-    <div>
-      <div class="header-group">
-        <mat-form-field class="selector">
-          <mat-label>Виберіть проект</mat-label>
-          <mat-select
-            [value]="currentProject()"
-            (valueChange)="onSelectChange($event)"
-          >
-            @for (project of projects(); track project) {
-            <mat-option [value]="project.id">{{ project.name }}</mat-option>
-            }
-            <mat-option value="all">Усі</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <div class="btn-wrapper">
-          <button mat-raised-button color="primary" [routerLink]="['create']">
-            + Нове завдання
-          </button>
-        </div>
-      </div>
-
-      <table mat-table [dataSource]="assignments()" class="mat-elevation-z8">
-        <ng-container
-          *ngIf="currentProject() === 'all'"
-          matColumnDef="projectName"
+  <div class="project-container">
+    <div class="header-group">
+      <mat-form-field class="selector">
+        <mat-label>Виберіть проект</mat-label>
+        <mat-select
+          [value]="currentProject()"
+          (valueChange)="onSelectChange($event)"
         >
+          @for (project of projects(); track project) {
+          <mat-option [value]="project._id">{{ project.name }}</mat-option>
+          }
+          <mat-option value="all">Усі</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="btn-wrapper">
+        <button mat-raised-button color="primary" [routerLink]="['create']">
+          + Нове завдання
+        </button>
+      </div>
+    </div>
+
+    <ng-container *ngIf="assignments().length; else empty">
+      <table mat-table [dataSource]="assignments()" class="mat-elevation-z8">
+        <ng-container matColumnDef="projectName">
           <th mat-header-cell *matHeaderCellDef>Проект</th>
           <td mat-cell *matCellDef="let assignment" class="projectName-value">
             {{ assignment.project.name }}
@@ -81,7 +78,7 @@
             <button
               mat-flat-button
               color="accent"
-              [routerLink]="['edit', assignment.id]"
+              [routerLink]="['edit', assignment._id]"
             >
               Редагувати
             </button>
@@ -89,7 +86,7 @@
             <button
               mat-flat-button
               color="warn"
-              (click)="onDelete(assignment.id, $event)"
+              (click)="onDelete(assignment._id, $event)"
             >
               Видалити
             </button>
@@ -104,15 +101,10 @@
           *matRowDef="let assignment; columns: displayedColumns"
         ></tr>
       </table>
-    </div>
+    </ng-container>
   </div>
 </div>
 
 <ng-template #empty>
-  <div class="empty-wrapper">
-    <button mat-raised-button color="primary" [routerLink]="['create']">
-      + Нове завдання
-    </button>
-  </div>
-  <div class="empty">Looks like nothing is here...</div></ng-template
+  <div class="empty">Здається тут нічого немає...</div></ng-template
 >
