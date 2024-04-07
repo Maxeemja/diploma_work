@@ -54,12 +54,11 @@ const assignmentSchema = new mongoose.Schema({
 	}
 });
 
-assignmentSchema.plugin(AutoIncrement, { inc_field: 'number' });
-
 assignmentSchema.statics.build = (attr: IAssignment) => {
 	return new Assignment(attr);
 };
 
+assignmentSchema.plugin(AutoIncrement, { inc_field: 'number' });
 const Assignment = mongoose.model<any, assignmentModelInterface>(
 	'Assignment',
 	assignmentSchema

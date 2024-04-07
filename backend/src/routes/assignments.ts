@@ -72,7 +72,8 @@ router.patch('/update/:id', async (req, res) => {
 		const updatedData = req.body;
 		const options = { new: true };
 
-		const result = await Assignment.findByIdAndUpdate(id, updatedData, options);
+		await Assignment.findByIdAndUpdate(id, updatedData, options);
+		const result = await Assignment.find().populate(['assignee', 'project'])
 
 		res.send(result);
 	} catch (error: any) {
