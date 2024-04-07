@@ -74,13 +74,14 @@ export class ApiService {
 
   public updateAssignment(payload: any) {
     this.http
-      .patch<Assignment>(
-        `${assignmentsEndpointUrl}/update/${payload.id}`,
+      .patch<Assignment[]>(
+        `${assignmentsEndpointUrl}/update/${payload._id}`,
         payload
       )
       .pipe(take(1))
       .subscribe((data) => {
         if (data) {
+          this.assignments.set(data)
           this.toastr.success('Завдання було успішно оновлено', 'Готово');
           this.router.navigate(['/']);
         }

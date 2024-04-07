@@ -67,7 +67,7 @@ export class HomeComponent {
 
   onItemClick(assignment: Assignment) {
     this.dialog.open<string>(ModalAssignmentDetailsComponent, {
-      data: { assignment },
+      data: assignment,
     });
   }
 }

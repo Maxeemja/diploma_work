@@ -36,7 +36,7 @@ import { UtilsService } from '../../services/utils.service';
 })
 export class ModalAssignmentDetailsComponent {
   // injection
-  public data: Record<'assignment', Assignment> = inject(DIALOG_DATA);
+  public data: Assignment = inject(DIALOG_DATA);
   public dialogRef = inject(DialogRef);
   private router = inject(Router);
   private service = inject(ApiService);
@@ -53,10 +53,9 @@ export class ModalAssignmentDetailsComponent {
   }
 
   onStatusChange(value: number) {
-    this.service.updateAssignment({ ...this.data.assignment, status: value });
+    this.service.updateAssignment({ ...this.data, status: value });
   }
 
   ngOnDestroy() {
-    this.service.getAssignmentsList();
   }
 }
