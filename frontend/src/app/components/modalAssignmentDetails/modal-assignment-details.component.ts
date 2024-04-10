@@ -55,7 +55,4 @@ export class ModalAssignmentDetailsComponent {
   onStatusChange(value: number) {
     this.service.updateAssignment({ ...this.data, status: value });
   }
-
-  ngOnDestroy() {
-  }
 }

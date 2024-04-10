@@ -43,10 +43,6 @@ export class HomeComponent {
   public status = Status;
   public priority = Priority;
 
-  ngOnInit() {
-    this.service.getInitialData();
-  }
-
   onDelete(id: number, event: Event) {
     this.service.deleteAssignment(id);
     console.log(id);

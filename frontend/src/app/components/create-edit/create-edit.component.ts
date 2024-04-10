@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -36,20 +36,21 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './create-edit.component.scss',
 })
 export class CreateEditComponent {
+  // injections
+  private route = inject(ActivatedRoute);
+  private fb = inject(FormBuilder);
+  private service = inject(ApiService);
+
+  // sources
   public members = this.service.members;
   public projects = this.service.projects;
   public isEdit = !!this.route.snapshot.params['id'];
-  assignmentId: string = '';
+
+  private assignmentId: string = '';
 
   // import enums
   public status = Status;
   public priority = Priority;
-
-  constructor(
-    private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private service: ApiService
-  ) {}
 
   myForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(4)]],
@@ -62,8 +63,6 @@ export class CreateEditComponent {
   });
 
   ngOnInit() {
-    this.service.getMembers();
-    this.service.getProjectsList();
     if (this.isEdit) {
       this.service
         .getAssignment(this.route.snapshot.params['id'])
@@ -87,7 +86,7 @@ export class CreateEditComponent {
     if (this.myForm.valid) {
       if (this.isEdit) {
         return this.service.updateAssignment({
-          id: this.assignmentId,
+          _id: this.assignmentId,
           ...this.myForm.value,
         });
       }

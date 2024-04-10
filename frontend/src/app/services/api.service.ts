@@ -25,17 +25,9 @@ export class ApiService {
   public assignments = signal<Assignment[]>([]);
 
   public getInitialData() {
-    this.http
-      .get<Project[]>(`${API_URL}/projects`)
-      .pipe(
-        take(1),
-        map((data) => {
-          this.projects.set(data);
-        })
-      )
-      .subscribe();
-
     this.getAssignmentsList();
+    this.getProjectsList();
+    this.getMembersList();
   }
 
   public getAssignmentsList() {
@@ -49,7 +41,6 @@ export class ApiService {
       .pipe(
         take(1),
         map((data) => {
-
           this.assignments.set(data);
         })
       )
@@ -66,6 +57,7 @@ export class ApiService {
       .pipe(take(1))
       .subscribe((data) => {
         if (data) {
+          this.getAssignmentsList();
           this.toastr.success('Завдання було успішно створено', 'Готово');
           this.router.navigate(['/']);
         }
@@ -81,7 +73,7 @@ export class ApiService {
       .pipe(take(1))
       .subscribe((data) => {
         if (data) {
-          this.assignments.set(data)
+          this.getAssignmentsList();
           this.toastr.success('Завдання було успішно оновлено', 'Готово');
           this.router.navigate(['/']);
         }
@@ -96,7 +88,7 @@ export class ApiService {
         })
         .pipe(take(1))
         .subscribe((data: Assignment[]) => {
-          this.assignments.set(data);
+          this.getAssignmentsList();
           this.toastr.success(
             `Завдання з ID ${id} було успішно видалено!`,
             'Готово'
@@ -117,7 +109,7 @@ export class ApiService {
       .subscribe();
   }
 
-  public getMembers() {
+  public getMembersList() {
     this.http
       .get<Member[]>(`${API_URL}/members`)
       .pipe(
