@@ -55,12 +55,10 @@ export class ApiService {
     this.http
       .post<Assignment>(`${assignmentsEndpointUrl}`, payload)
       .pipe(take(1))
-      .subscribe((data) => {
-        if (data) {
-          this.getAssignmentsList();
-          this.toastr.success('Завдання було успішно створено', 'Готово');
-          this.router.navigate(['/']);
-        }
+      .subscribe(() => {
+        this.getAssignmentsList();
+        this.toastr.success('Завдання було успішно створено', 'Готово');
+        this.router.navigate(['/']);
       });
   }
 
@@ -71,23 +69,19 @@ export class ApiService {
         payload
       )
       .pipe(take(1))
-      .subscribe((data) => {
-        if (data) {
-          this.getAssignmentsList();
-          this.toastr.success('Завдання було успішно оновлено', 'Готово');
-          this.router.navigate(['/']);
-        }
+      .subscribe(() => {
+        this.getAssignmentsList();
+        this.toastr.success('Завдання було успішно оновлено', 'Готово');
+        this.router.navigate(['/']);
       });
   }
 
   public deleteAssignment(id: number) {
     if (confirm('Ви бажаєте видалити це завдання?')) {
       this.http
-        .delete<Assignment[]>(`${assignmentsEndpointUrl}/delete/${id}`, {
-          body: { currProjId: this.currentProject() },
-        })
+        .delete(`${assignmentsEndpointUrl}/delete/${id}`)
         .pipe(take(1))
-        .subscribe((data: Assignment[]) => {
+        .subscribe(() => {
           this.getAssignmentsList();
           this.toastr.success(
             `Завдання з ID ${id} було успішно видалено!`,

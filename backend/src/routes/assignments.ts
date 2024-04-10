@@ -9,7 +9,7 @@ router.post('/', async (req: Request, res: Response) => {
 
 	try {
 		await assignment.save();
-		res.status(200).json(assignment);
+		res.status(200).json();
 	} catch (error: any) {
 		res.status(400).json({ message: error.message });
 	}
@@ -54,12 +54,8 @@ router.get('/of/:id', async (req, res) => {
 router.delete('/delete/:id', async (req, res) => {
 	try {
 		const id = req.params.id;
-		const { currProjId } = req.body;
 		await Assignment.findByIdAndDelete(id);
-		const items = await Assignment.find(
-			currProjId !== 'all' ? { project: currProjId } : {}
-		).populate(['assignee', 'project']);
-		res.status(200).send(items);
+		res.status(200).json();
 	} catch (error: any) {
 		res.status(400).json({ message: error.message });
 	}
@@ -73,9 +69,7 @@ router.patch('/update/:id', async (req, res) => {
 		const options = { new: true };
 
 		await Assignment.findByIdAndUpdate(id, updatedData, options);
-		const result = await Assignment.find().populate(['assignee', 'project'])
-
-		res.send(result);
+		res.status(200).json();
 	} catch (error: any) {
 		res.status(400).json({ message: error.message });
 	}
