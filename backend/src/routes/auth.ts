@@ -13,7 +13,7 @@ const register = async (req, res) => {
 	try {
 		if (verifyEmail) {
 			return res.status(403).json({
-				message: 'Email already used'
+				message: 'Емейл вже використано'
 			});
 		} else {
 			//використовуємо bcrypt для хешування пароля
@@ -32,7 +32,7 @@ const register = async (req, res) => {
 					.save()
 					.then((response) => {
 						return res.status(201).json({
-							message: 'user successfully created!',
+							message: 'користувача було успішно створено!',
 							result: response,
 							success: true
 						});
@@ -60,10 +60,11 @@ const login = async (req, res) => {
 			email: email
 		});
 
-		const response = await bcrypt.compare(password, user.password);
+		const response = await bcrypt.compare(password, user?.password);
+
 		if (!user || !response) {
 			return res.status(401).json({
-				message: 'Authentication Failed'
+				message: 'Аутентифікація не була успішна'
 			});
 		}
 		let jwtToken = jwt.sign(
@@ -80,7 +81,7 @@ const login = async (req, res) => {
 		});
 	} catch (err) {
 		return res.status(401).json({
-			messgae: err.message,
+			message: 'Неправильний логін та/або пароль',
 			success: false
 		});
 	}
