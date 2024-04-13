@@ -1,7 +1,14 @@
+enum Roles {
+  Admin = 'ADMIN',
+  Member = 'MEMBER',
+}
+
 export interface Member {
-  id?: string,
-  _id: string,
-  firstName: string,
-  secondName: string,
-  isBusy?: boolean
+  _id: string;
+  firstName: string;
+  secondName: string;
+  isBusy?: boolean;
+  email: string;
+  password: string;
+  role: Roles;
 }

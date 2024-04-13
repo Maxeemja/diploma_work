@@ -3,7 +3,7 @@ import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { ModalAssignmentDetailsComponent } from '../modalAssignmentDetails/modal-assignment-details.component';
@@ -13,6 +13,7 @@ import {
   Status,
 } from '../../shared/interfaces/Assignment';
 import { displayedColumns } from '../../shared/constants';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -32,6 +33,8 @@ export class HomeComponent {
   // injection
   private service = inject(ApiService);
   public dialog = inject(Dialog);
+  router = inject(Router);
+  authService = inject(AuthService);
 
   // selectors
   public currentProject = this.service.currentProject;
@@ -42,6 +45,14 @@ export class HomeComponent {
   // import enums
   public status = Status;
   public priority = Priority;
+
+  ngOnInit() {
+    if (!this.authService.getToken()) {
+      this.router.navigate(['login']);
+    } else {
+      this.service.getInitialData();
+    }
+  }
 
   onDelete(id: number, event: Event) {
     this.service.deleteAssignment(id);
