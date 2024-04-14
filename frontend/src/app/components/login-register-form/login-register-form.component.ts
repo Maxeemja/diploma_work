@@ -1,7 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-login',
-  templateUrl: 'login.component.html',
+  templateUrl: 'login-register-form.component.html',
   styleUrls: ['../create-edit/create-edit.component.scss'],
   standalone: true,
   imports: [
@@ -30,22 +29,41 @@ import { MatSelectModule } from '@angular/material/select';
     MatIconModule,
   ],
 })
-export class LoginComponent implements OnInit {
+export class LoginRegisterComponent implements OnInit {
   // injections
   private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
   private service = inject(AuthService);
 
-  myForm = this.fb.group({
+  isLogin: boolean = false;
+
+  loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(4)]],
   });
 
-  ngOnInit() {}
+  registerForm = this.fb.group({
+    firstName: ['', [Validators.required, Validators.maxLength(10)]],
+    secondName: ['', [Validators.required, Validators.maxLength(18)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(4)]],
+  });
 
-  onSubmit() {
-    if (this.myForm.valid) {
-      this.service.handleLogin(this.myForm.getRawValue());
+  ngOnInit() {
+    if (this.route.snapshot.url[0].path === 'login') {
+      this.isLogin = true;
+    }
+  }
+
+  onLogin() {
+    if (this.loginForm.valid) {
+      this.service.handleLogin(this.loginForm.getRawValue());
+    }
+  }
+
+  onRegister() {
+    if (this.registerForm.valid) {
+      this.service.handleRegister(this.registerForm.getRawValue());
     }
   }
 }

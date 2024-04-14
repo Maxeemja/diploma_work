@@ -28,4 +28,26 @@ export class AuthService {
         this.router.navigate(['/']);
       });
   }
+
+  handleRegister(payload: {
+    email: string | null;
+    password: string | null;
+    firstName: string | null;
+    secondName: string | null;
+  }) {
+    this.http
+      .post<any>(`${authEndpointUrl}/register`, payload)
+      .pipe(take(1))
+      .subscribe(() => {
+        try {
+          const { email, password } = payload;
+          this.handleLogin({ email, password });
+        } catch (err: any) {
+          this.toastr.error(err?.error?.message);
+          return;
+        }
+        this.toastr.success('Успішно зареєстровано', '');
+        this.router.navigate(['/login']);
+      });
+  }
 }

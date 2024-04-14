@@ -1,0 +1,47 @@
+<div class="container">
+  <h3 class="title">{{ isLogin ? "Авторизація" : "Реєстрація" }}</h3>
+
+  <ng-container *ngIf="isLogin">
+    <form class="form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input #myInput matInput formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Пароль</mat-label>
+        <input matInput formControlName="password" />
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit">Увійти</button>
+    </form>
+  </ng-container>
+
+  <ng-container *ngIf="!isLogin">
+    <form class="form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Ім"я</mat-label>
+        <input #myInput matInput formControlName="firstName" />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Прізвище</mat-label>
+        <input #myInput matInput formControlName="secondName" />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input #myInput matInput formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <mat-label>Пароль</mat-label>
+        <input matInput formControlName="password" />
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit">
+        {{ isLogin ? "Увійти" : "Зареєструватись" }}
+      </button>
+    </form>
+  </ng-container>
+</div>
