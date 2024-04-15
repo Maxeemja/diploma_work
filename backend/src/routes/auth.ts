@@ -77,7 +77,8 @@ const login = async (req, res) => {
 			}
 		);
 		return res.status(200).json({
-			token: jwtToken
+			token: jwtToken,
+			userId: user._id
 		});
 	} catch (err) {
 		return res.status(401).json({
