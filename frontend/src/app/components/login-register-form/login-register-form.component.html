@@ -5,15 +5,19 @@
     <form class="form" [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <mat-form-field class="example-full-width">
         <mat-label>Email</mat-label>
-        <input #myInput matInput formControlName="email" />
+        <input type="email" matInput formControlName="email" />
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Пароль</mat-label>
-        <input matInput formControlName="password" />
+        <input type="password" matInput formControlName="password" />
       </mat-form-field>
 
       <button mat-flat-button color="primary" type="submit">Увійти</button>
+
+      <a mat-button color="link" routerLink="/register"
+        >Ще не маєте акаунт? Реєстрація</a
+      >
     </form>
   </ng-container>
 
@@ -21,27 +25,29 @@
     <form class="form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
       <mat-form-field class="example-full-width">
         <mat-label>Ім"я</mat-label>
-        <input #myInput matInput formControlName="firstName" />
+        <input matInput formControlName="firstName" />
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Прізвище</mat-label>
-        <input #myInput matInput formControlName="secondName" />
+        <input matInput formControlName="secondName" />
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Email</mat-label>
-        <input #myInput matInput formControlName="email" />
+        <input type="email" matInput formControlName="email" />
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
         <mat-label>Пароль</mat-label>
-        <input matInput formControlName="password" />
+        <input type="password" matInput formControlName="password" />
       </mat-form-field>
 
       <button mat-flat-button color="primary" type="submit">
         {{ isLogin ? "Увійти" : "Зареєструватись" }}
       </button>
+
+      <a mat-button color="link" routerLink="/login">Маєте акаунт? Увійти</a>
     </form>
   </ng-container>
 </div>
