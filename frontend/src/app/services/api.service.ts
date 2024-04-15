@@ -7,6 +7,7 @@ import { Member } from '../shared/interfaces/Member';
 import { Assignment } from '../shared/interfaces/Assignment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from './auth.service';
 
 const assignmentsEndpointUrl = `${API_URL}/assignments`;
 
@@ -18,6 +19,7 @@ export class ApiService {
   private http = inject(HttpClient);
   private router = inject(Router);
   private toastr = inject(ToastrService);
+  private authService = inject(AuthService);
 
   public currentProject = signal('all');
   public projects = signal<Project[]>([]);
@@ -28,6 +30,7 @@ export class ApiService {
     this.getAssignmentsList();
     this.getProjectsList();
     this.getMembersList();
+    this.authService.getCurrentUser();
   }
 
   public getAssignmentsList() {

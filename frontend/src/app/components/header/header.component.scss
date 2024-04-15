@@ -1,0 +1,16 @@
+.header {
+  padding: 10px;
+  background: #3f51b5;
+  height: 50px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+}

@@ -16,6 +16,7 @@ import {
   Status,
 } from '../../shared/interfaces/Assignment';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-create-edit',
@@ -40,6 +41,7 @@ export class CreateEditComponent {
   private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
   private service = inject(ApiService);
+  private authService = inject(AuthService);
 
   // sources
   public members = this.service.members;
@@ -59,7 +61,7 @@ export class CreateEditComponent {
     priority: [0, Validators.required],
     deadline: ['', Validators.required],
     project: ['', Validators.required],
-    assignee: ['', Validators.required],
+    assignee: [this.authService.currentUser()?._id, Validators.required],
   });
 
   ngOnInit() {

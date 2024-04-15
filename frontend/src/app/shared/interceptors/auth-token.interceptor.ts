@@ -16,7 +16,7 @@ export const authInterceptor: HttpInterceptorFn = (
 
   const clonedRequest = request.clone({
     setHeaders: {
-      Authorization: `Bearer ${authService.getToken()}`, // Replace with your actual token logic
+      Authorization: `Bearer ${authService.getToken()}`,
     },
   });
 

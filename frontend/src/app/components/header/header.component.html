@@ -1,0 +1,7 @@
+<header class="header">
+  <div class="title">Планувальник Завдань</div>
+  <div class="user" *ngIf="authService.currentUser()">
+    <span>{{ fullName() }}</span>
+    <button mat-flat-button (click)="handleLogout()">Вийти</button>
+  </div>
+</header>

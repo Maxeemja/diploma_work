@@ -1,12 +1,11 @@
-import { CUSTOM_ELEMENTS_SCHEMA, Component, inject } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ModalAssignmentDetailsComponent } from './components/modalAssignmentDetails/modal-assignment-details.component';
 import { CreateEditComponent } from './components/create-edit/create-edit.component';
-import { ApiService } from './services/api.service';
-import { AuthService } from './services/auth.service';
+import { HeaderComponent } from './components/header/header.component';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +17,7 @@ import { AuthService } from './services/auth.service';
     ModalAssignmentDetailsComponent,
     CreateEditComponent,
     NgxSpinnerModule,
+    HeaderComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './app.component.html',
