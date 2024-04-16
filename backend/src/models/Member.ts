@@ -2,7 +2,8 @@ import mongoose, { Schema } from 'mongoose';
 
 enum Roles {
 	Admin = 'ADMIN',
-	Member = 'MEMBER'
+	Member = 'MEMBER',
+	Moderator = 'MODERATOR'
 }
 
 export interface IMember {

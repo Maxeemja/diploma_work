@@ -14,7 +14,7 @@ const projectSchema = new mongoose.Schema({
 		required: true,
 		validate: {
 			validator: function (v: string) {
-				return /^((?!all).)*$[a-zA-Z]/i.test(v);
+				return v !== 'all';
 			},
 			message: (props: any) => `Project cannot be named like this!`
 		}
