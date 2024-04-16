@@ -6,7 +6,7 @@ import { MatTableModule } from '@angular/material/table';
 import { Router, RouterLink } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
-import { ModalAssignmentDetailsComponent } from '../modalAssignmentDetails/modal-assignment-details.component';
+import { ModalAssignmentDetailsComponent } from '../modal-assignment-details/modal-assignment-details.component';
 import {
   Assignment,
   Priority,
@@ -14,6 +14,7 @@ import {
 } from '../../shared/interfaces/Assignment';
 import { displayedColumns } from '../../shared/constants';
 import { AuthService } from '../../services/auth.service';
+import { ModalCreateProjectComponent } from '../modal-create-project/modal-create-project.component';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +34,7 @@ export class HomeComponent {
   // injection
   private service = inject(ApiService);
   public dialog = inject(Dialog);
-  router = inject(Router);
+  private router = inject(Router);
   authService = inject(AuthService);
 
   // selectors
@@ -45,6 +46,7 @@ export class HomeComponent {
   // import enums
   public status = Status;
   public priority = Priority;
+  public isUserAdmin = false;
 
   ngOnInit() {
     if (!this.authService.getToken()) {
@@ -70,6 +72,10 @@ export class HomeComponent {
         return col !== 'projectName';
       });
     }
+  }
+
+  onAddProject() {
+    this.dialog.open(ModalCreateProjectComponent);
   }
 
   onItemClick(assignment: Assignment) {

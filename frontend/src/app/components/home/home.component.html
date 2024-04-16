@@ -14,6 +14,11 @@
         </mat-select>
       </mat-form-field>
       <div class="btn-wrapper">
+        @if(authService.isCurrentUserAdmin()) {
+        <button mat-raised-button color="accent" (click)="onAddProject()">
+          + Проект
+        </button>
+        }
         <button mat-raised-button color="primary" [routerLink]="['create']">
           + Нове завдання
         </button>

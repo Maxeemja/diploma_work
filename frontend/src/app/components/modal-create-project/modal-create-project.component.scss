@@ -1,0 +1,11 @@
+:host ::ng-deep .modal-window {
+  min-width: 200px !important;
+}
+.modal-project-window {
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+  }
+}

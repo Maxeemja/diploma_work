@@ -1,0 +1,56 @@
+.modal-content-wrapper {
+  .sections-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 3vw;
+    position: relative;
+  }
+
+  body {
+    background-color: aqua;
+  }
+  p {
+    line-height: 20px;
+  }
+
+  .actions-container {
+    justify-content: end;
+    align-items: center;
+    display: flex;
+    gap: 10px;
+  }
+
+  .description {
+    word-wrap: break-word;
+    &-label {
+      margin-bottom: 10px;
+    }
+  }
+
+  .name {
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  .section {
+    &-main {
+      width: 70%;
+    }
+    &-sub {
+      span {
+        margin-right: 4px;
+      }
+    }
+  }
+
+  .block {
+    &-priority {
+      display: flex;
+      align-items: center;
+
+      mat-icon {
+        margin-left: 3px;
+      }
+    }
+  }
+}

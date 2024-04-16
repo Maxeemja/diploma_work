@@ -13,6 +13,11 @@
   align-items: center;
   margin-bottom: 20px;
   margin-top: 20px;
+
+  .btn-wrapper {
+    display: flex;
+    gap: 20px;
+  }
 }
 
 .btn-add-task {

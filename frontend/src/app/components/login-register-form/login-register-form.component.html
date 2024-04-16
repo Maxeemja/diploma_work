@@ -25,11 +25,11 @@
     <form class="form" [formGroup]="registerForm" (ngSubmit)="onRegister()">
       <mat-form-field class="example-full-width">
         <mat-label>Ім"я</mat-label>
-        <input matInput formControlName="firstName" />
+        <input type="text" matInput formControlName="firstName" />
       </mat-form-field>
 
       <mat-form-field class="example-full-width">
-        <mat-label>Прізвище</mat-label>
+        <mat-label type="text">Прізвище</mat-label>
         <input matInput formControlName="secondName" />
       </mat-form-field>
 

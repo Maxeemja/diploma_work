@@ -1,10 +1,7 @@
 <ng-container *ngIf="data as assignment">
-  <div class="modal-details-window">
-    <h3 mat-dialog-title>
-      {{ assignment.project?.name?.replace(" ", "_") }}-{{ assignment.number }}
-    </h3>
-    <mat-dialog-content>
-      <div class="modal-content-wrapper">
+  <app-modal-window [title]="title">
+    <div class="modal-content-wrapper">
+      <div class="sections-wrapper">
         <section class="section-main">
           <p class="name">{{ assignment.name | titlecase }}</p>
           <div class="description-label">Опис:</div>
@@ -38,7 +35,6 @@
           </div>
         </section>
       </div>
-
       <hr />
       <div class="actions-container">
         <button
@@ -52,6 +48,13 @@
           Закрити
         </button>
       </div>
+    </div>
+  </app-modal-window>
+
+  <!-- <div class="modal-details-window">
+    <h3 mat-dialog-title></h3>
+    <mat-dialog-content>
+
     </mat-dialog-content>
-  </div>
+  </div> -->
 </ng-container>

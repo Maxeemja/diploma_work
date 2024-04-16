@@ -1,6 +1,7 @@
 enum Roles {
   Admin = 'ADMIN',
   Member = 'MEMBER',
+  Moderator = 'MODERATOR'
 }
 
 export interface Member {

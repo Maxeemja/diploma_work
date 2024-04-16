@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { ModalAssignmentDetailsComponent } from './components/modalAssignmentDetails/modal-assignment-details.component';
+import { ModalAssignmentDetailsComponent } from './components/modal-assignment-details/modal-assignment-details.component';
 import { CreateEditComponent } from './components/create-edit/create-edit.component';
 import { HeaderComponent } from './components/header/header.component';
 

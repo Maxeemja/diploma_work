@@ -1,0 +1,19 @@
+<app-modal-window title="Створити проект">
+  <div class="modal-project-window">
+    <form (ngSubmit)="onSubmit()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Назва</mat-label>
+        <input matInput [(ngModel)]="projectName" name="something" />
+      </mat-form-field>
+
+      <button
+        [disabled]="projectName.length < 3"
+        type="submit"
+        mat-flat-button
+        color="warn"
+      >
+        Додати
+      </button>
+    </form>
+  </div>
+</app-modal-window>

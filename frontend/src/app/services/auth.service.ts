@@ -18,6 +18,10 @@ export class AuthService {
   public currentUser = signal<Member | null>(null);
   public fullName = signal('');
 
+  isCurrentUserAdmin(): boolean {
+    return this.currentUser()?.role === 'ADMIN';
+  }
+
   getToken(): string | null {
     return localStorage.getItem('token');
   }

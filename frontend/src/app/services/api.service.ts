@@ -106,6 +106,16 @@ export class ApiService {
       .subscribe();
   }
 
+  public createProject(name: string) {
+    this.http
+      .post<Project>(`${API_URL}/projects`, { name })
+      .pipe(take(1))
+      .subscribe(() => {
+        this.getProjectsList();
+        this.toastr.success('Проект було успішно створено', 'Готово');
+      });
+  }
+
   public getMembersList() {
     this.http
       .get<Member[]>(`${API_URL}/members`)
