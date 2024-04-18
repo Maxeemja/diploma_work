@@ -19,7 +19,6 @@ export class ApiService {
   private http = inject(HttpClient);
   private router = inject(Router);
   private toastr = inject(ToastrService);
-  private authService = inject(AuthService);
 
   public currentProject = signal('all');
   public projects = signal<Project[]>([]);
@@ -30,7 +29,6 @@ export class ApiService {
     this.getAssignmentsList();
     this.getProjectsList();
     this.getMembersList();
-    this.authService.getCurrentUser();
   }
 
   public getAssignmentsList() {

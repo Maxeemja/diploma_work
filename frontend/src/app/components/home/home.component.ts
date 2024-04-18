@@ -49,11 +49,7 @@ export class HomeComponent {
   public isUserAdmin = false;
 
   ngOnInit() {
-    if (!this.authService.getToken()) {
-      this.router.navigate(['login']);
-    } else {
-      this.service.getInitialData();
-    }
+    this.authService.getCurrentUser();
   }
 
   onDelete(id: number, event: Event) {

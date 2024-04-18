@@ -12,8 +12,9 @@ export const IsAuthenticatedGuard: CanActivateFn = (
   state: RouterStateSnapshot
 ) => {
   const router = inject(Router);
+  const authService = inject(AuthService);
 
-  if (localStorage.getItem('token')) {
+  if (authService.currentUser() !== null) {
     return true;
   }
   router.navigate(['login']);

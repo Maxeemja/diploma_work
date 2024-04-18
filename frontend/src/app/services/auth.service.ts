@@ -1,10 +1,11 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Member } from '../shared/interfaces/Member';
 import { API_URL } from '../shared/constants';
-import { HttpClient } from '@angular/common/http';
-import { take } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { take, catchError, EMPTY } from 'rxjs';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ApiService } from './api.service';
 
 const authEndpointUrl = `${API_URL}/auth`;
 
@@ -14,6 +15,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
   private toastr = inject(ToastrService);
+  private service = inject(ApiService);
 
   public currentUser = signal<Member | null>(null);
   public fullName = signal('');
@@ -37,10 +39,19 @@ export class AuthService {
   getCurrentUser() {
     this.http
       .get<Member>(`${API_URL}/members/${this.getCurrentUserId()}`)
-      .pipe(take(1))
+      .pipe(
+        take(1),
+        catchError((err: HttpErrorResponse) => {
+          if (err.status === 401) {
+            this.router.navigate(['login']);
+          }
+          return EMPTY;
+        })
+      )
       .subscribe((member: Member) => {
         this.currentUser.set(member);
         this.fullName.set(`${member.firstName} ${member.secondName}`);
+        this.service.getInitialData();
       });
   }
 

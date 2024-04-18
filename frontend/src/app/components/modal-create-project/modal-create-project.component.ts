@@ -32,6 +32,5 @@ export class ModalCreateProjectComponent {
   onSubmit() {
     this.service.createProject(this.projectName);
     this.dialogRef.close();
-    // this.service.updateAssignment({ ...this.data, status: value });
   }
 }

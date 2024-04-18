@@ -7,44 +7,43 @@ import { ToastrService } from 'ngx-toastr';
 export class HandleErrorService {
   private toastr = inject(ToastrService);
 
-  // Handling HTTP Errors using Toaster
   public handleError(err: HttpErrorResponse) {
     let errorMessage: string;
     if (err.error.message) {
       this.toastr.error(err.error.message);
       return;
     }
+
     if (err.error instanceof ErrorEvent) {
-      // A client-side or network error occurred. Handle it accordingly.
       errorMessage = `Виникла помилка: ${err.error.message}`;
     } else {
       switch (err.status) {
         case 400:
-          errorMessage = `${err.status}: Bad Request.`;
+          errorMessage = `${err.status}: Поганий запит.`;
           this.toastr.error(errorMessage);
           break;
         case 401:
-          errorMessage = `${err.status}: You are unauthorized to do this action.`;
+          errorMessage = `${err.status}: Ви не авторизовані для виконання цієї дії.`;
           this.toastr.error(errorMessage);
           break;
         case 403:
-          errorMessage = `${err.status}: You don't have permission to access the requested resource.`;
+          errorMessage = `${err.status}: У вас немає дозволу на доступ до потрібного ресурсу.`;
           this.toastr.error(errorMessage);
           break;
         case 404:
-          errorMessage = `${err.status}: The requested resource does not exist.`;
+          errorMessage = `${err.status}: Потрібний ресурс не існує.`;
           this.toastr.error(errorMessage);
           break;
         case 412:
-          errorMessage = `${err.status}: Precondition Failed.`;
+          errorMessage = `${err.status}: Попередня умова не виконана.`;
           this.toastr.error(errorMessage);
           break;
         case 500:
-          errorMessage = `${err.status}: Internal Server Error.`;
+          errorMessage = `${err.status}: Внутрішня помилка сервера.`;
           this.toastr.error(errorMessage);
           break;
         case 503:
-          errorMessage = `${err.status}: The requested service is not available.`;
+          errorMessage = `${err.status}: Потрібна послуга недоступна.`;
           this.toastr.error(errorMessage);
           break;
         default:
@@ -53,5 +52,4 @@ export class HandleErrorService {
       }
     }
   }
-  // The backend returned an unsuccessful response code.
 }

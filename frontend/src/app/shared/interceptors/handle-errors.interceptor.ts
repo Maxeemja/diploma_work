@@ -18,7 +18,7 @@ export const handleErrorsInterceptor: HttpInterceptorFn = (
     catchError((err: HttpErrorResponse) => {
       console.log(err);
       errorService.handleError(err);
-      return throwError(err); // return observable with error instead of throwing
+      return throwError(() => err); // return observable with error instead of throwing
     })
   );
 };
