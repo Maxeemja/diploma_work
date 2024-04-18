@@ -3,7 +3,6 @@ import { Assignment } from '../models/Assignment';
 
 const router = express.Router();
 
-//Post Method
 router.post('/', async (req: Request, res: Response) => {
 	const assignment = Assignment.build(req.body);
 
@@ -24,7 +23,6 @@ router.get('/', async (req: Request, res: Response) => {
 	}
 });
 
-//Get by ID Method
 router.get('/:id', async (req, res) => {
 	try {
 		const data = await Assignment.findById(req.params.id).populate([
@@ -37,7 +35,6 @@ router.get('/:id', async (req, res) => {
 	}
 });
 
-//Get by ID Method
 router.get('/of/:id', async (req, res) => {
 	try {
 		const data = await Assignment.find({ project: req.params.id }).populate([
@@ -50,7 +47,6 @@ router.get('/of/:id', async (req, res) => {
 	}
 });
 
-//Delete by ID Method
 router.delete('/delete/:id', async (req, res) => {
 	try {
 		const id = req.params.id;
@@ -61,7 +57,6 @@ router.delete('/delete/:id', async (req, res) => {
 	}
 });
 
-//Update by ID Method
 router.patch('/update/:id', async (req, res) => {
 	try {
 		const id = req.params.id;
