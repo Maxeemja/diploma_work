@@ -15,7 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ApiService } from '../../services/api.service';
 import { MatIconModule } from '@angular/material/icon';
 import { UtilsService } from '../../services/utils.service';
-import { ModalWindowComponent } from '../modal-window/modal-window.component';
+import { ModalWindowComponent } from '../../shared/components/modal-window/modal-window.component';
 
 @Component({
   selector: 'modal-assignment-details',

@@ -1,5 +1,5 @@
 import { Injectable, inject, signal } from '@angular/core';
-import { Member } from '../shared/interfaces/Member';
+import { Member, Roles } from '../shared/interfaces/Member';
 import { API_URL } from '../shared/constants';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { take, catchError, EMPTY } from 'rxjs';
@@ -21,7 +21,7 @@ export class AuthService {
   public fullName = signal('');
 
   isCurrentUserAdmin(): boolean {
-    return this.currentUser()?.role === 'ADMIN';
+    return this.currentUser()?.role === Roles.Admin;
   }
 
   getToken(): string | null {
@@ -43,6 +43,7 @@ export class AuthService {
         take(1),
         catchError((err: HttpErrorResponse) => {
           if (err.status === 401) {
+            localStorage.removeItem('token');
             this.router.navigate(['login']);
           }
           return EMPTY;

@@ -6,7 +6,7 @@ import { ApiService } from '../../services/api.service';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ModalWindowComponent } from '../modal-window/modal-window.component';
+import { ModalWindowComponent } from '../../shared/components/modal-window/modal-window.component';
 
 @Component({
   selector: 'app-modal-create-project',

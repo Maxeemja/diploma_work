@@ -1,9 +1,5 @@
 <div class="container">
-  <div class="header-arrow">
-    <a routerLink="/">
-      <mat-icon aria-hidden="false" fontIcon="arrow_back"></mat-icon> Назад</a
-    >
-  </div>
+  <app-go-back-link></app-go-back-link>
   <h3 class="title">{{ isEdit ? "Редагувати" : "Створити" }}</h3>
 
   <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">

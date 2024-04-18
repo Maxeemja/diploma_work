@@ -17,6 +17,7 @@ import {
 } from '../../shared/interfaces/Assignment';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
+import { GoBackLinkComponent } from '../../shared/components/go-back-link/go-back-link.component';
 
 @Component({
   selector: 'app-create-edit',
@@ -31,7 +32,7 @@ import { AuthService } from '../../services/auth.service';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatIconModule,
+    GoBackLinkComponent,
   ],
   templateUrl: './create-edit.component.html',
   styleUrl: './create-edit.component.scss',
