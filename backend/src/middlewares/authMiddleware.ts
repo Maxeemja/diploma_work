@@ -8,7 +8,7 @@ export default (req: any, res: any, next: any) => {
 		next();
 	} catch (err) {
 		return res.status(401).json({
-			message: 'Authentification Failed'
+			message: 'Помилка автентифікації'
 		});
 	}
 };
