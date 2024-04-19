@@ -7,7 +7,7 @@ import { AdminPageComponent } from './components/admin-page/admin-page.component
 import { IsUserAdminGuard } from './shared/guards/is-user-admin.guard';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '', component: HomeComponent },
   {
     path: 'create',
     component: CreateEditComponent,

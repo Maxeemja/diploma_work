@@ -17,6 +17,6 @@ export class AdminPageComponent {
   projects = this.service.projects;
 
   ngOnInit() {
-    this.authService.getCurrentUser();
+    console.log(this.authService.currentUser());
   }
 }
