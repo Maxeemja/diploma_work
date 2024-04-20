@@ -28,7 +28,7 @@ router.patch('/:id', async (req, res) => {
 		const options = { new: true };
 
 		const updatedUser = await Member.findByIdAndUpdate(id, updatedData, options);
-		res.send(updatedUser);
+		res.json(updatedUser);
 	} catch (error: any) {
 		res.status(400).json({ message: error.message });
 	}
@@ -38,7 +38,7 @@ router.delete('/:id', async (req, res) => {
 	try {
 		const id = req.params.id;
 		const user = await Member.findByIdAndDelete(id);
-		res.send(`Учасника з імейлом ${user?.email} було видалено`);
+		res.json(`Учасника з імейлом ${user?.email} було видалено`);
 	} catch (error: any) {
 		res.status(400).json({ message: error.message });
 	}
