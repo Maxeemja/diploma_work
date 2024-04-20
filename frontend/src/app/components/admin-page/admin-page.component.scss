@@ -1,6 +1,29 @@
 .wrapper {
   margin-top: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  .title {
+    margin-bottom: 20px;
+  }
+
+  .item {
+    font-size: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    flex-direction: row;
+    .name {
+      max-width: 165px;
+      text-overflow: ellipsis;
+    }
+    .actions button {
+      margin-left: 10px;
+    }
+    .mat-mdc-form-field {
+      margin-bottom: -1.25em;
+    }
+  }
 }

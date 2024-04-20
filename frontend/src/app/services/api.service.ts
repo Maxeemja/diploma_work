@@ -105,6 +105,14 @@ export class ApiService {
   }
 
   public createProject(name: string) {
+    if (
+      this.projects().filter(
+        (project) => project.name.toLowerCase() === name.toLowerCase()
+      ).length
+    ) {
+      this.toastr.error('Проект з такою назвою вже існує', 'Помилка');
+      return;
+    }
     this.http
       .post<Project>(`${API_URL}/projects`, { name })
       .pipe(take(1))
@@ -124,5 +132,27 @@ export class ApiService {
         })
       )
       .subscribe();
+  }
+
+  public updateMember(payload: Member) {
+    this.http
+      .patch<Member>(`${API_URL}/members/${payload._id}`, payload)
+      .pipe(take(1))
+      .subscribe();
+  }
+
+  public deleteMember(id: string) {
+    if (confirm('Ви бажаєте видалити цього користувача?')) {
+      this.http
+        .delete(`${API_URL}/members/${id}`)
+        .pipe(take(1))
+        .subscribe(() => {
+          this.getMembersList();
+          this.toastr.success(
+            `Користувача з ID ${id} було успішно видалено!`,
+            'Готово'
+          );
+        });
+    } else return;
   }
 }

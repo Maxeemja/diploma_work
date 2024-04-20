@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { Dialog, DialogModule } from '@angular/cdk/dialog';
 import { ModalAssignmentDetailsComponent } from '../modal-assignment-details/modal-assignment-details.component';
@@ -15,6 +15,7 @@ import {
 import { displayedColumns } from '../../shared/constants';
 import { AuthService } from '../../services/auth.service';
 import { ModalCreateProjectComponent } from '../modal-create-project/modal-create-project.component';
+import { Roles } from '../../shared/interfaces/Member';
 
 @Component({
   selector: 'app-home',
@@ -34,8 +35,7 @@ export class HomeComponent {
   // injection
   private service = inject(ApiService);
   public dialog = inject(Dialog);
-  private router = inject(Router);
-  authService = inject(AuthService);
+  public authService = inject(AuthService);
 
   // selectors
   public currentProject = this.service.currentProject;
@@ -46,7 +46,6 @@ export class HomeComponent {
   // import enums
   public status = Status;
   public priority = Priority;
-  public isUserAdmin = false;
 
   ngOnInit() {
     this.authService.getCurrentUser();
@@ -54,7 +53,6 @@ export class HomeComponent {
 
   onDelete(id: number, event: Event) {
     this.service.deleteAssignment(id);
-    console.log(id);
     event.stopPropagation();
   }
 

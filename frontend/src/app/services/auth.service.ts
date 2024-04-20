@@ -21,7 +21,13 @@ export class AuthService {
   public fullName = signal('');
 
   isCurrentUserAdmin(): boolean {
-    return this.currentUser()?.role === Roles.Admin;
+    return this.currentUser()?.role === Roles.ADMIN;
+  }
+
+  isCurrentUserModerator(): boolean {
+    return [Roles.ADMIN, Roles.MODERATOR].includes(
+      this.currentUser()?.role || Roles.MEMBER
+    );
   }
 
   getToken(): string | null {
@@ -37,6 +43,11 @@ export class AuthService {
   }
 
   getCurrentUser() {
+    if (!this.getCurrentUserId()) {
+      this.router.navigate(['login']);
+      return;
+    }
+
     this.http
       .get<Member>(`${API_URL}/members/${this.getCurrentUserId()}`)
       .pipe(

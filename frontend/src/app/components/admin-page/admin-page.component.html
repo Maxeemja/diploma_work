@@ -2,12 +2,42 @@
   <app-go-back-link></app-go-back-link>
   <main class="wrapper">
     <section class="projects">
-      <h3>Projects</h3>
-      <p>PROJECTS</p>
+      <h3 class="title">Проекти</h3>
+      <div class="list"></div>
+      @for(project of projects(); track project) {
+      <div class="item">{{ project.name }}</div>
+      }
     </section>
     <section class="members">
-      <h3>Members</h3>
-      <p>MEMBERS</p>
+      <h3 class="title">Користувачі</h3>
+      @for(member of members(); track member) {
+      <mat-card *ngIf="member.role !== 'ADMIN'" class="item">
+        <mat-card-title class="name">{{
+          member.firstName + " " + member.secondName
+        }}</mat-card-title>
+        <div class="actions">
+          <mat-form-field>
+            <mat-select
+              [value]="member.role"
+              (valueChange)="onUpdateUserRole($event, member._id)"
+            >
+              @for (role of roles; track role) {
+              <mat-option *ngIf="role !== 'ADMIN'" [value]="role">{{
+                rolesUI[role]
+              }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <button mat-button color="warn" (click)="onDeleteUser(member._id)">
+            Видалити
+          </button>
+        </div>
+      </mat-card>
+      }
     </section>
   </main>
 </div>
+
+<ng-template #memberChangeRole>
+  <input type="text" placeholder="Role" />
+</ng-template>

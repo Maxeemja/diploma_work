@@ -1,7 +1,13 @@
 export enum Roles {
-  Admin = 'ADMIN',
-  Member = 'MEMBER',
-  Moderator = 'MODERATOR'
+  ADMIN = 'ADMIN',
+  MEMBER = 'MEMBER',
+  MODERATOR = 'MODERATOR'
+}
+
+export enum RolesUI {
+  ADMIN = 'Адмін',
+  MEMBER = 'Учасник',
+  MODERATOR = 'Модератор'
 }
 
 export interface Member {
