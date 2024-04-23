@@ -1,7 +1,7 @@
 <header class="header">
   <div class="title">Планувальник Завдань</div>
   <div class="user" *ngIf="authService.currentUser()">
-    @if(authService.isCurrentUserAdmin()) {
+    @if(authService.isUserAdmin()) {
     <a mat-flat-button color="warn" routerLink="admin-panel">Адмін-панель</a>
     }
     <span>{{ fullName() }}</span>

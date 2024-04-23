@@ -18,6 +18,7 @@ export class AuthService {
   private service = inject(ApiService);
 
   public currentUser = signal<Member | null>(null);
+  public isUserAdmin = signal(false);
   public fullName = signal('');
 
   isCurrentUserAdmin(): boolean {
@@ -62,6 +63,9 @@ export class AuthService {
       )
       .subscribe((member: Member) => {
         this.currentUser.set(member);
+        if (member?.role === Roles.ADMIN) {
+          this.isUserAdmin.set(true);
+        }
         this.fullName.set(`${member.firstName} ${member.secondName}`);
         this.service.getInitialData();
       });
@@ -106,6 +110,7 @@ export class AuthService {
     this.toastr.info('Здійснено вихід з акаунта', '');
 
     this.currentUser.set(null);
+    this.isUserAdmin.set(false);
     localStorage.removeItem('token');
     localStorage.removeItem('userId');
   }

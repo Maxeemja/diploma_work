@@ -25,7 +25,7 @@ router.get('/', async (req: Request, res: Response) => {
 	}
 });
 
-router.get('/get/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
 	try {
 		const data = await Project.findById(req.params.id);
 		res.json(data);
@@ -34,7 +34,7 @@ router.get('/get/:id', async (req, res) => {
 	}
 });
 
-router.patch('/update/:id', async (req, res) => {
+router.patch('/:id', async (req, res) => {
 	try {
 		const id = req.params.id;
 		const updatedData = req.body;
@@ -48,7 +48,7 @@ router.patch('/update/:id', async (req, res) => {
 	}
 });
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
 	try {
 		const id = req.params.id;
 		const data = await Project.findByIdAndDelete(id);

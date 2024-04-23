@@ -3,9 +3,40 @@
   <main class="wrapper">
     <section class="projects">
       <h3 class="title">Проекти</h3>
-      <div class="list"></div>
+
       @for(project of projects(); track project) {
-      <div class="item">{{ project.name }}</div>
+      <mat-card class="item">
+        <mat-card-title *ngIf="selectedCardIndex !== $index" class="name">{{
+          project.name
+        }}</mat-card-title>
+        <input
+          *ngIf="selectedCardIndex === $index"
+          #inputRef
+          [(ngModel)]="projectName"
+          type="text"
+          matInput
+          (blur)="onInputBlur()"
+          placeholder="Назва"
+        />
+        <div class="actions">
+          <button
+            mat-button
+            [disabled]="selectedCardIndex === $index && projectName.length < 3"
+            color="accent"
+            (click)="onChangeName($index, project)"
+          >
+            {{ selectedCardIndex !== $index ? "Редагувати" : "Зберегти" }}
+          </button>
+          <button
+            mat-button
+            color="warn"
+            (click)="onDeleteProject(project._id)"
+          >
+            Видалити
+          </button>
+        </div>
+      </mat-card>
+
       }
     </section>
     <section class="members">

@@ -141,6 +141,13 @@ export class ApiService {
       .subscribe();
   }
 
+  public updateProject(payload: Project) {
+    this.http
+      .patch<Member>(`${API_URL}/projects/${payload._id}`, payload)
+      .pipe(take(1))
+      .subscribe();
+  }
+
   public deleteMember(id: string) {
     if (confirm('Ви бажаєте видалити цього користувача?')) {
       this.http
@@ -150,6 +157,21 @@ export class ApiService {
           this.getMembersList();
           this.toastr.success(
             `Користувача з ID ${id} було успішно видалено!`,
+            'Готово'
+          );
+        });
+    } else return;
+  }
+
+  public deleteProject(id: string) {
+    if (confirm('Ви бажаєте видалити цей проект?')) {
+      this.http
+        .delete(`${API_URL}/projects/${id}`)
+        .pipe(take(1))
+        .subscribe(() => {
+          this.getProjectsList();
+          this.toastr.success(
+            `Проект з ID ${id} було успішно видалено!`,
             'Готово'
           );
         });

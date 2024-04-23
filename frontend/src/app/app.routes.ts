@@ -7,22 +7,26 @@ import { AdminPageComponent } from './components/admin-page/admin-page.component
 import { IsUserAdminGuard } from './shared/guards/is-user-admin.guard';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
   {
-    path: 'create',
-    component: CreateEditComponent,
-    canActivate: [IsAuthenticatedGuard],
-  },
-  {
-    path: 'edit/:id',
-    component: CreateEditComponent,
-    canActivate: [IsAuthenticatedGuard],
+    path: '',
+    canActivateChild: [IsAuthenticatedGuard],
+    children: [
+      { path: '', component: HomeComponent },
+      {
+        path: 'create',
+        component: CreateEditComponent,
+      },
+      {
+        path: 'edit/:id',
+        component: CreateEditComponent,
+      },
+      {
+        path: 'admin-panel',
+        component: AdminPageComponent,
+        canActivate: [IsUserAdminGuard],
+      },
+    ],
   },
   { path: 'login', component: LoginRegisterComponent },
   { path: 'register', component: LoginRegisterComponent },
-  {
-    path: 'admin-panel',
-    component: AdminPageComponent,
-    canActivate: [IsAuthenticatedGuard, IsUserAdminGuard],
-  },
 ];
