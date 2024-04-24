@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import { Project } from '../models/Project';
+import { Assignment } from '../models/Assignment';
 
 const router = express.Router();
 
@@ -42,7 +43,7 @@ router.patch('/:id', async (req, res) => {
 
 		const result = await Project.findByIdAndUpdate(id, updatedData, options);
 
-		res.send(result);
+		res.json(result);
 	} catch (error) {
 		res.status(400).json({ message: error.message });
 	}
@@ -52,7 +53,8 @@ router.delete('/:id', async (req, res) => {
 	try {
 		const id = req.params.id;
 		const data = await Project.findByIdAndDelete(id);
-		res.send(`Document with ${data.name} has been deleted..`);
+		await Assignment.deleteMany({ project: id });
+		res.json(`Document with ${data.name} has been deleted..`);
 	} catch (error) {
 		res.status(400).json({ message: error.message });
 	}
