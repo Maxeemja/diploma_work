@@ -143,9 +143,11 @@ export class ApiService {
 
   public updateProject(payload: Project) {
     this.http
-      .patch<Member>(`${API_URL}/projects/${payload._id}`, payload)
+      .patch<Project>(`${API_URL}/projects/${payload._id}`, payload)
       .pipe(take(1))
-      .subscribe();
+      .subscribe(() => {
+        this.getProjectsList();
+      });
   }
 
   public deleteMember(id: string) {

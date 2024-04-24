@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { GoBackLinkComponent } from '../../shared/components/go-back-link/go-back-link.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,7 +35,6 @@ export class AdminPageComponent {
   public dialog = inject(MatDialog);
   private service = inject(ApiService);
 
-  public isNameEditing = false;
   public projectName = '';
   public selectedCardIndex: any = null;
 
@@ -44,19 +43,31 @@ export class AdminPageComponent {
   public roles = Object.values(Roles);
   public rolesUI = RolesUI;
 
+  @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
+
   ngOnInit() {}
 
-  ngAfterViewInit() {}
+  ngAfterViewChecked() {
+    if (this.inputRef && this.projectName.length === 0) {
+      this.inputRef.nativeElement.focus();
 
-  onInputBlur() {
-    this.selectedCardIndex = null;
+      console.log(this.inputRef);
+    }
+  }
+
+  onInputBlur(event: any) {
+    if (event?.relatedTarget?.nodeName !== 'BUTTON') {
+      this.projectName = '';
+      this.selectedCardIndex = null;
+    }
   }
 
   onChangeName(idx: number, project: Project) {
-    if (this.projectName.length) {
+    if (this.selectedCardIndex && this.projectName.length) {
       this.selectedCardIndex = null;
       const payload = { ...project, name: this.projectName };
       this.service.updateProject(payload);
+      this.projectName = '';
       return;
     }
     this.selectedCardIndex = idx;
