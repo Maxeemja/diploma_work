@@ -1,0 +1,10 @@
+@if(data) {
+  <app-modal-window [title]="title">
+    <div class="actions-container">
+      <button mat-flat-button color="warn" (click)="onConfirm()">Так</button>
+      <button mat-button color="accent" (click)="dialogRef.close()">
+        Ні
+      </button>
+    </div>
+  </app-modal-window>
+}

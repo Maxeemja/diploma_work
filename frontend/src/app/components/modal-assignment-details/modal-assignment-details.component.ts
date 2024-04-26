@@ -8,7 +8,6 @@ import {
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { Assignment } from '../../shared/interfaces/Assignment';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogActions, MatDialogClose } from '@angular/material/dialog';
 import { Router, RouterModule } from '@angular/router';
 import { Status, Priority } from '../../shared/interfaces/Assignment';
 import { MatSelectModule } from '@angular/material/select';
@@ -26,8 +25,6 @@ import { ModalWindowComponent } from '../../shared/components/modal-window/modal
     CommonModule,
     ModalWindowComponent,
     MatButtonModule,
-    MatDialogActions,
-    MatDialogClose,
     RouterModule,
     MatSelectModule,
     MatIconModule,

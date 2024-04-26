@@ -1,11 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
-import { Dialog, DialogModule } from '@angular/cdk/dialog';
+import { Dialog } from '@angular/cdk/dialog';
 import { ModalAssignmentDetailsComponent } from '../modal-assignment-details/modal-assignment-details.component';
 import {
   Assignment,
@@ -15,7 +15,8 @@ import {
 import { displayedColumns } from '../../shared/constants';
 import { AuthService } from '../../services/auth.service';
 import { ModalCreateProjectComponent } from '../modal-create-project/modal-create-project.component';
-import { Roles } from '../../shared/interfaces/Member';
+import { ModalDeleteConfirmationComponent } from '../modal-delete-confirmation/modal-delete-confirmation.component';
+import { DeleteModalData } from '../../shared/interfaces/DeleteModalData';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,6 @@ import { Roles } from '../../shared/interfaces/Member';
     MatTableModule,
     RouterLink,
     MatSelectModule,
-    DialogModule,
   ],
 })
 export class HomeComponent {
@@ -52,8 +52,13 @@ export class HomeComponent {
   }
 
   onDelete(id: number, event: Event) {
-    this.service.deleteAssignment(id);
     event.stopPropagation();
+    this.dialog.open<{ data: DeleteModalData }>(
+      ModalDeleteConfirmationComponent,
+      {
+        data: { id, text: 'це завдання', entity: 'assignment' },
+      }
+    );
   }
 
   onSelectChange(id: string) {
@@ -73,7 +78,7 @@ export class HomeComponent {
   }
 
   onItemClick(assignment: Assignment) {
-    this.dialog.open<string>(ModalAssignmentDetailsComponent, {
+    this.dialog.open(ModalAssignmentDetailsComponent, {
       data: assignment,
     });
   }

@@ -6,18 +6,8 @@
     position: relative;
   }
 
-  body {
-    background-color: aqua;
-  }
   p {
     line-height: 20px;
-  }
-
-  .actions-container {
-    justify-content: end;
-    align-items: center;
-    display: flex;
-    gap: 10px;
   }
 
   .description {

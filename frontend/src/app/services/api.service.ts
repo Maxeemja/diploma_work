@@ -77,19 +77,17 @@ export class ApiService {
       });
   }
 
-  public deleteAssignment(id: number) {
-    if (confirm('Ви бажаєте видалити це завдання?')) {
-      this.http
-        .delete(`${assignmentsEndpointUrl}/delete/${id}`)
-        .pipe(take(1))
-        .subscribe(() => {
-          this.getAssignmentsList();
-          this.toastr.success(
-            `Завдання з ID ${id} було успішно видалено!`,
-            'Готово'
-          );
-        });
-    } else return;
+  public deleteAssignment(id: string) {
+    this.http
+      .delete(`${assignmentsEndpointUrl}/delete/${id}`)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.getAssignmentsList();
+        this.toastr.success(
+          `Завдання з ID ${id} було успішно видалено!`,
+          'Готово'
+        );
+      });
   }
 
   public getProjectsList() {
@@ -151,32 +149,28 @@ export class ApiService {
   }
 
   public deleteMember(id: string) {
-    if (confirm('Ви бажаєте видалити цього користувача?')) {
-      this.http
-        .delete(`${API_URL}/members/${id}`)
-        .pipe(take(1))
-        .subscribe(() => {
-          this.getMembersList();
-          this.toastr.success(
-            `Користувача з ID ${id} було успішно видалено!`,
-            'Готово'
-          );
-        });
-    } else return;
+    this.http
+      .delete(`${API_URL}/members/${id}`)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.getMembersList();
+        this.toastr.success(
+          `Користувача з ID ${id} було успішно видалено!`,
+          'Готово'
+        );
+      });
   }
 
   public deleteProject(id: string) {
-    if (confirm('Ви бажаєте видалити цей проект?')) {
-      this.http
-        .delete(`${API_URL}/projects/${id}`)
-        .pipe(take(1))
-        .subscribe(() => {
-          this.getProjectsList();
-          this.toastr.success(
-            `Проект з ID ${id} було успішно видалено!`,
-            'Готово'
-          );
-        });
-    } else return;
+    this.http
+      .delete(`${API_URL}/projects/${id}`)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.getProjectsList();
+        this.toastr.success(
+          `Проект з ID ${id} було успішно видалено!`,
+          'Готово'
+        );
+      });
   }
 }

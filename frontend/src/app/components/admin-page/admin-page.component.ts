@@ -3,8 +3,7 @@ import { ApiService } from '../../services/api.service';
 import { GoBackLinkComponent } from '../../shared/components/go-back-link/go-back-link.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { ModalWindowComponent } from '../../shared/components/modal-window/modal-window.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { Roles, RolesUI } from '../../shared/interfaces/Member';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { Project } from '../../shared/interfaces/Project';
+import { ModalDeleteConfirmationComponent } from '../modal-delete-confirmation/modal-delete-confirmation.component';
+import { DeleteModalData } from '../../shared/interfaces/DeleteModalData';
 @Component({
   selector: 'app-admin-page',
   standalone: true,
@@ -22,8 +23,6 @@ import { Project } from '../../shared/interfaces/Project';
     GoBackLinkComponent,
     MatButtonModule,
     MatCardModule,
-    ModalWindowComponent,
-    MatDialogModule,
     MatSelectModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -82,11 +81,20 @@ export class AdminPageComponent {
   }
 
   onDeleteUser(id: string) {
-    this.service.deleteMember(id);
+    this.dialog.open<{ data: DeleteModalData }>(
+      ModalDeleteConfirmationComponent,
+      {
+        data: { id, text: 'цього користувача', entity: 'member' },
+      }
+    );
   }
 
-  //TODO: tasks related to project also needs to be deleted
   onDeleteProject(id: string) {
-    this.service.deleteProject(id);
+    this.dialog.open<{ data: DeleteModalData }>(
+      ModalDeleteConfirmationComponent,
+      {
+        data: { id, text: 'цей проект', entity: 'project' },
+      }
+    );
   }
 }
