@@ -1,18 +1,7 @@
 <div class="container" *ngIf="authService.currentUser()">
   <div class="project-container">
     <div class="header-group">
-      <mat-form-field class="selector">
-        <mat-label>Виберіть проект</mat-label>
-        <mat-select
-          [value]="currentProject()"
-          (valueChange)="onSelectChange($event)"
-        >
-          @for (project of projects(); track project) {
-          <mat-option [value]="project._id">{{ project.name }}</mat-option>
-          }
-          <mat-option value="all">Усі</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <app-filters-group></app-filters-group>
       <div class="btn-wrapper">
         @if(authService.isCurrentUserModerator()) {
         <button mat-raised-button color="accent" (click)="onAddProject()">

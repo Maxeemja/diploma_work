@@ -17,6 +17,7 @@ import { AuthService } from '../../services/auth.service';
 import { ModalCreateProjectComponent } from '../modal-create-project/modal-create-project.component';
 import { ModalDeleteConfirmationComponent } from '../modal-delete-confirmation/modal-delete-confirmation.component';
 import { DeleteModalData } from '../../shared/interfaces/DeleteModalData';
+import { FiltersGroupComponent } from '../../shared/components/filters-group/filters-group.component';
 
 @Component({
   selector: 'app-home',
@@ -29,21 +30,22 @@ import { DeleteModalData } from '../../shared/interfaces/DeleteModalData';
     MatTableModule,
     RouterLink,
     MatSelectModule,
+    FiltersGroupComponent,
   ],
 })
 export class HomeComponent {
-  // injection
-  private service = inject(ApiService);
+  // ін"єкція
   public dialog = inject(Dialog);
+  private service = inject(ApiService);
   public authService = inject(AuthService);
 
-  // selectors
+  // селектори
   public currentProject = this.service.currentProject;
   public projects = this.service.projects;
   public assignments = this.service.assignments;
-  // table dispayed columns
+  // список стовпців які відображатиме таблиця
   displayedColumns = displayedColumns;
-  // import enums
+
   public status = Status;
   public priority = Priority;
 

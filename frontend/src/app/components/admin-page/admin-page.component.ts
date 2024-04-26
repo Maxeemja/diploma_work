@@ -25,7 +25,6 @@ import { DeleteModalData } from '../../shared/interfaces/DeleteModalData';
     MatCardModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatSelectModule,
     MatInputModule,
     FormsModule,
   ],
