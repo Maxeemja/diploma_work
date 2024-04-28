@@ -40,7 +40,6 @@ export class HomeComponent {
   public authService = inject(AuthService);
 
   // селектори
-  public currentProject = this.service.currentProject;
   public projects = this.service.projects;
   public assignments = this.service.assignments;
   // список стовпців які відображатиме таблиця
@@ -61,18 +60,6 @@ export class HomeComponent {
         data: { id, text: 'це завдання', entity: 'assignment' },
       }
     );
-  }
-
-  onSelectChange(id: string) {
-    this.currentProject.set(id);
-    this.service.getAssignmentsList();
-    if (id === 'all') {
-      this.displayedColumns = ['projectName', ...this.displayedColumns];
-    } else {
-      this.displayedColumns = this.displayedColumns.filter((col) => {
-        return col !== 'projectName';
-      });
-    }
   }
 
   onAddProject() {

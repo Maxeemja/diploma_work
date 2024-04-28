@@ -1,28 +1,49 @@
 <section class="filters-group-wrapper">
-   <mat-form-field class="selector">
-        <mat-label>Виберіть проект</mat-label>
-        <mat-select
-          [value]="currentProject()"
-          (valueChange)="onSelectChange($event)"
-        >
-          @for (project of projects(); track project) {
-          <mat-option [value]="project._id">{{ project.name }}</mat-option>
-          }
-          <mat-option value="all">Усі</mat-option>
-        </mat-select>
-      </mat-form-field>
+  <mat-form-field class="selector">
+    <mat-label>Виберіть проект</mat-label>
+    <mat-select
+      [value]="projectFilter()"
+      (valueChange)="onProjectChange($event)"
+    >
+      @for (project of projects(); track project) {
+      <mat-option [value]="project._id">{{ project.name }}</mat-option>
+      }
+      <mat-option value="all">Усі</mat-option>
+    </mat-select>
+  </mat-form-field>
 
+  <mat-form-field class="selector">
+    <mat-label>Виконавець</mat-label>
+    <mat-select [value]="userFilter()" (valueChange)="onUserChange($event)">
+      @for (member of members(); track member) {
+      <mat-option [value]="member._id">{{
+        member.firstName + " " + member.secondName
+      }}</mat-option>
+      }
+      <mat-option value="all">Усі</mat-option>
+    </mat-select>
+  </mat-form-field>
 
-      <mat-form-field class="selector">
-        <mat-label>Виконавець</mat-label>
-        <mat-select
-          [value]="currentProject()"
-          (valueChange)="onSelectChange($event)"
-        >
-          @for (project of projects(); track project) {
-          <mat-option [value]="project._id">{{ project.name }}</mat-option>
-          }
-          <mat-option value="all">Усі</mat-option>
-        </mat-select>
-      </mat-form-field>
+  <mat-form-field class="selector">
+    <mat-label>Статус</mat-label>
+    <mat-select [value]="statusFilter()" (valueChange)="onStatusChange($event)">
+      @for (status of [0,1,2]; track status) {
+      <mat-option [value]="status">{{ statuses[status] }}</mat-option>
+      }
+      <mat-option value="all">Усі</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="selector">
+    <mat-label>Пріоритет</mat-label>
+    <mat-select
+      [value]="priorityFilter()"
+      (valueChange)="onPriorityChange($event)"
+    >
+      @for (priority of [0,1,2]; track priority) {
+      <mat-option [value]="priority">{{ priorities[priority] }}</mat-option>
+      }
+      <mat-option value="all">Усі</mat-option>
+    </mat-select>
+  </mat-form-field>
 </section>

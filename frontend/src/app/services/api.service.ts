@@ -8,6 +8,7 @@ import { Assignment } from '../shared/interfaces/Assignment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from './auth.service';
+import { FiltersService } from './filters.service';
 
 const assignmentsEndpointUrl = `${API_URL}/assignments`;
 
@@ -19,8 +20,8 @@ export class ApiService {
   private http = inject(HttpClient);
   private router = inject(Router);
   private toastr = inject(ToastrService);
+  private filterService = inject(FiltersService);
 
-  public currentProject = signal('all');
   public projects = signal<Project[]>([]);
   public members = signal<Member[]>([]);
   public assignments = signal<Assignment[]>([]);
@@ -32,13 +33,10 @@ export class ApiService {
   }
 
   public getAssignmentsList() {
-    const isAllSelected = this.currentProject() === 'all';
+    const queryParams = this.filterService.queryParamsSignal();
+
     this.http
-      .get<Assignment[]>(
-        `${assignmentsEndpointUrl}${
-          !isAllSelected ? `/of/${this.currentProject()}` : ''
-        }`
-      )
+      .get<Assignment[]>(`${assignmentsEndpointUrl}?${queryParams}`)
       .pipe(
         take(1),
         map((data) => {
