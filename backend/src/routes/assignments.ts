@@ -16,14 +16,20 @@ router.post('/', async (req: Request, res: Response) => {
 
 router.get('/', async (req: Request, res: Response) => {
 	try {
-		const data = await Assignment.find().populate(['assignee', 'project']);
+		const query = req.query;
+		const isQuerySent = Boolean(Object.keys(query).length);
+
+		const data = await Assignment.find(isQuerySent ? query : null).populate([
+			'assignee',
+			'project'
+		]);
 		res.json(data);
 	} catch (error: any) {
 		res.status(500).json({ message: error.message });
 	}
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req: Request, res: Response) => {
 	try {
 		const data = await Assignment.findById(req.params.id).populate([
 			'assignee',
@@ -35,7 +41,7 @@ router.get('/:id', async (req, res) => {
 	}
 });
 
-router.get('/of/:id', async (req, res) => {
+router.get('/of/:id', async (req: Request, res: Response) => {
 	try {
 		const data = await Assignment.find({ project: req.params.id }).populate([
 			'assignee',
@@ -47,7 +53,7 @@ router.get('/of/:id', async (req, res) => {
 	}
 });
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', async (req: Request, res: Response) => {
 	try {
 		const id = req.params.id;
 		await Assignment.findByIdAndDelete(id);
@@ -57,7 +63,7 @@ router.delete('/delete/:id', async (req, res) => {
 	}
 });
 
-router.patch('/update/:id', async (req, res) => {
+router.patch('/update/:id', async (req: Request, res: Response) => {
 	try {
 		const id = req.params.id;
 		const updatedData = req.body;
