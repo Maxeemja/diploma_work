@@ -6,11 +6,12 @@ import { ApiService } from '../../../services/api.service';
 import { displayedColumns } from '../../constants';
 import { FiltersService } from '../../../services/filters.service';
 import { Priority, Status } from '../../interfaces/Assignment';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-filters-group',
   standalone: true,
-  imports: [CommonModule, MatSelectModule, MatFormFieldModule],
+  imports: [CommonModule, MatSelectModule, MatFormFieldModule, MatButtonModule],
   templateUrl: './filters-group.component.html',
   styleUrl: './filters-group.component.scss',
 })
@@ -51,6 +52,14 @@ export class FiltersGroupComponent {
   }
   onPriorityChange(priority: string) {
     this.priorityFilter.set(priority);
+    this.service.getAssignmentsList();
+  }
+
+  onResetFilters() {
+    this.userFilter.set('all');
+    this.projectFilter.set('all');
+    this.statusFilter.set('all');
+    this.priorityFilter.set('all');
     this.service.getAssignmentsList();
   }
 }

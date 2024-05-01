@@ -1,13 +1,13 @@
 .filters-group-wrapper {
   display: flex;
   gap: 15px;
+  align-items: center;
 
   .mat-mdc-form-field {
     margin-bottom: -1.25em;
   }
 
   .selector {
-    max-width: 200px;
+    max-width: 175px;
   }
 }
-
