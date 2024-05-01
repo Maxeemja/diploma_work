@@ -76,14 +76,16 @@
             >
               Редагувати
             </button>
-            |
-            <button
-              mat-flat-button
-              color="warn"
-              (click)="onDelete(assignment._id, $event)"
-            >
-              Видалити
-            </button>
+            @if(authService.isCurrentUserModerator()) {
+              |
+              <button
+                mat-flat-button
+                color="warn"
+                (click)="onDelete(assignment._id, $event)"
+              >
+                Видалити
+              </button>
+            }
           </td>
         </ng-container>
 
