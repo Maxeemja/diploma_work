@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { Project } from '../../shared/interfaces/Project';
 import { ModalDeleteConfirmationComponent } from '../modal-delete-confirmation/modal-delete-confirmation.component';
 import { DeleteModalData } from '../../shared/interfaces/DeleteModalData';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-admin-page',
   standalone: true,
@@ -27,6 +28,7 @@ import { DeleteModalData } from '../../shared/interfaces/DeleteModalData';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
+    RouterLink,
   ],
 })
 export class AdminPageComponent {

@@ -1,0 +1,47 @@
+<div class="container">
+  <app-go-back-link></app-go-back-link>
+
+  <div class="wrapper">
+    <div class="input-container">
+      <form>
+        <mat-form-field>
+          <mat-label>Емейл</mat-label>
+          <input
+            type="email"
+            matInput
+            [formControl]="emailFormControl"
+            [errorStateMatcher]="matcher"
+            placeholder="Емейл"
+          />
+          @if (emailFormControl.hasError('email') &&
+          !emailFormControl.hasError('required')) {
+          <mat-error>Будь ласка введіть валідний емейл</mat-error>
+          } @if (emailFormControl.hasError('required')) {
+          <mat-error>Емейл <strong>обов"язковий</strong></mat-error>
+          }
+        </mat-form-field>
+        <button
+          mat-flat-button
+          type="button"
+          [disabled]="!emailFormControl.valid"
+          color="accent"
+          (click)="onAdd()"
+        >
+          Додати
+        </button>
+      </form>
+    </div>
+    <div class="list-container">
+      @for(email of emails(); track email) {
+      <mat-card class="item" *ngIf="!email.email.includes('admin')">
+        <mat-card-title class="name">{{ email.email }}</mat-card-title>
+        <div class="actions">
+          <button mat-button color="warn" (click)="onDelete(email._id || '')">
+            Видалити
+          </button>
+        </div>
+      </mat-card>
+      }
+    </div>
+  </div>
+</div>

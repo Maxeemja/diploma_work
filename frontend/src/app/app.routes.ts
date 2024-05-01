@@ -5,6 +5,7 @@ import { LoginRegisterComponent } from './components/login-register-form/login-r
 import { IsAuthenticatedGuard } from './shared/guards/is-authenticated.guard';
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { IsUserAdminGuard } from './shared/guards/is-user-admin.guard';
+import { AdminEmailsComponent } from './components/admin-emails/admin-emails.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,11 @@ export const routes: Routes = [
       {
         path: 'admin-panel',
         component: AdminPageComponent,
+        canActivate: [IsUserAdminGuard],
+      },
+      {
+        path: 'admin-panel/emails',
+        component: AdminEmailsComponent,
         canActivate: [IsUserAdminGuard],
       },
     ],

@@ -7,8 +7,8 @@ import { Member } from '../shared/interfaces/Member';
 import { Assignment } from '../shared/interfaces/Assignment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from './auth.service';
 import { FiltersService } from './filters.service';
+import { EmailModel } from '../shared/types';
 
 const assignmentsEndpointUrl = `${API_URL}/assignments`;
 
@@ -25,6 +25,7 @@ export class ApiService {
   public projects = signal<Project[]>([]);
   public members = signal<Member[]>([]);
   public assignments = signal<Assignment[]>([]);
+  public allowedEmails = signal<EmailModel[]>([]);
 
   public getInitialData() {
     this.getAssignmentsList();
@@ -169,6 +170,33 @@ export class ApiService {
           `Проект з ID ${id} було успішно видалено!`,
           'Готово'
         );
+      });
+  }
+
+  public getAllowedEmails() {
+    this.http
+      .get<EmailModel[]>(`${API_URL}/emails/`)
+      .pipe(take(1))
+      .subscribe((data: EmailModel[]) => {
+        this.allowedEmails.set(data);
+      });
+  }
+
+  public addAllowedEmail(email: EmailModel) {
+    this.http
+      .post<EmailModel[]>(`${API_URL}/emails/`, email)
+      .pipe(take(1))
+      .subscribe((data: EmailModel[]) => {
+        this.allowedEmails.set(data);
+      });
+  }
+
+  public deleteAllowedEmail(id: string) {
+    this.http
+      .delete<EmailModel[]>(`${API_URL}/emails/${id}`)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.getAllowedEmails();
       });
   }
 }

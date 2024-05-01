@@ -1,5 +1,12 @@
 <div class="container">
-  <app-go-back-link></app-go-back-link>
+  <div class="links-wrapper">
+    <app-go-back-link></app-go-back-link>
+    <a routerLink="/admin-panel/emails">
+      <button mat-flat-button color="accent">
+        Редагувати дозволені емейли
+      </button>
+    </a>
+  </div>
   <main class="wrapper">
     <section class="projects">
       <h3 class="title">Проекти</h3>
