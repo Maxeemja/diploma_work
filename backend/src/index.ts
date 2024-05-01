@@ -4,7 +4,8 @@ import {
 	membersRouter,
 	assignmentsRouter,
 	projectsRouter,
-	authRouter
+	authRouter,
+	emailsRouter
 } from './routes';
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -31,6 +32,7 @@ app.use(cors());
 app.use('/members', authMiddleware, membersRouter);
 app.use('/assignments', authMiddleware, assignmentsRouter);
 app.use('/projects', authMiddleware, projectsRouter);
+app.use('/emails', authMiddleware, emailsRouter);
 app.use('/auth', authRouter);
 
 app.listen(3000, () => {

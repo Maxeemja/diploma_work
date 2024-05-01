@@ -1,5 +1,6 @@
 import express from 'express';
 import { Member } from '../models/Member';
+import { AllowedEmail } from '../models/AllowedEmail';
 
 const router = express.Router();
 const bcrypt = require('bcryptjs');
@@ -10,10 +11,16 @@ const register = async (req, res) => {
 
 	//перевіряємо чи немає зареєстрованого юзера за таким імейлом
 	const verifyEmail = await Member.findOne({ email: email });
+	const isEmailAllowed = await AllowedEmail.find({ email: email });
+	console.log(isEmailAllowed);
 	try {
 		if (verifyEmail) {
 			return res.status(403).json({
 				message: 'Емейл вже використано'
+			});
+		} else if (!isEmailAllowed.length) {
+			return res.status(403).json({
+				message: 'Емейл недоступний для реєстрації'
 			});
 		} else {
 			//використовуємо bcrypt для хешування пароля
