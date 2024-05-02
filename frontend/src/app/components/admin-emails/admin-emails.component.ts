@@ -4,7 +4,6 @@ import { GoBackLinkComponent } from '../../shared/components/go-back-link/go-bac
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { ApiService } from '../../services/api.service';
-import { EmailModel } from '../../shared/types';
 import { MatCardModule } from '@angular/material/card';
 import {
   FormControl,
@@ -22,11 +21,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     form: FormGroupDirective | NgForm | null
   ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(
-      control &&
-      control.invalid &&
-      (control.dirty || control.touched || isSubmitted)
-    );
+    return !!(control && control.invalid && (control.dirty || isSubmitted));
   }
 }
 

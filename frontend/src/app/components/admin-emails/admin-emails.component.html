@@ -16,8 +16,6 @@
           @if (emailFormControl.hasError('email') &&
           !emailFormControl.hasError('required')) {
           <mat-error>Будь ласка введіть валідний емейл</mat-error>
-          } @if (emailFormControl.hasError('required')) {
-          <mat-error>Емейл <strong>обов"язковий</strong></mat-error>
           }
         </mat-form-field>
         <button
