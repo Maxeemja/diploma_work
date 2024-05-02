@@ -16,7 +16,7 @@ const assignmentsEndpointUrl = `${API_URL}/assignments`;
   providedIn: 'root',
 })
 export class ApiService {
-  // injecting dependencies
+  // ін"єкція
   private http = inject(HttpClient);
   private router = inject(Router);
   private toastr = inject(ToastrService);

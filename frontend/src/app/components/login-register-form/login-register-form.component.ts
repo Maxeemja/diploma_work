@@ -31,7 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
   ],
 })
 export class LoginRegisterComponent implements OnInit {
-  // injections
+  // ін"єкція
   private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
   private service = inject(AuthService);

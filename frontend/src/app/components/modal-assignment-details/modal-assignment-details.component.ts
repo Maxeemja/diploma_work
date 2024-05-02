@@ -32,7 +32,7 @@ import { ModalWindowComponent } from '../../shared/components/modal-window/modal
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalAssignmentDetailsComponent {
-  // injection
+  // ін"єкція
   public data: Assignment = inject(DIALOG_DATA);
   public dialogRef = inject(DialogRef);
   private router = inject(Router);
@@ -43,7 +43,6 @@ export class ModalAssignmentDetailsComponent {
     this.data.number
   }`;
 
-  // import enums
   public status = Status;
   public priority = Priority;
 

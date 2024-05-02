@@ -24,7 +24,7 @@ import { ModalWindowComponent } from '../../shared/components/modal-window/modal
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalCreateProjectComponent {
-  // injection
+  // ін"єкція
   public dialogRef = inject(DialogRef);
   private service = inject(ApiService);
   public projectName = '';

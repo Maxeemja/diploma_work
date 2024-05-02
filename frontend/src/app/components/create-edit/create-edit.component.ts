@@ -38,20 +38,19 @@ import { GoBackLinkComponent } from '../../shared/components/go-back-link/go-bac
   styleUrl: './create-edit.component.scss',
 })
 export class CreateEditComponent {
-  // injections
+  // ін"єкція
   private route = inject(ActivatedRoute);
   private fb = inject(FormBuilder);
   private service = inject(ApiService);
   private authService = inject(AuthService);
 
-  // sources
+  // селектори
   public members = this.service.members;
   public projects = this.service.projects;
   public isEdit = !!this.route.snapshot.params['id'];
 
   private assignmentId: string = '';
 
-  // import enums
   public status = Status;
   public priority = Priority;
 

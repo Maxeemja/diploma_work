@@ -11,7 +11,7 @@ const authEndpointUrl = `${API_URL}/auth`;
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  // injections
+  // ін"єкція
   private http = inject(HttpClient);
   private router = inject(Router);
   private toastr = inject(ToastrService);
