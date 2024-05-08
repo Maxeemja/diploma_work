@@ -41,18 +41,6 @@ router.get('/:id', async (req: Request, res: Response) => {
 	}
 });
 
-router.get('/of/:id', async (req: Request, res: Response) => {
-	try {
-		const data = await Assignment.find({ project: req.params.id }).populate([
-			'assignee',
-			'project'
-		]);
-		res.json(data);
-	} catch (error: any) {
-		res.status(500).json({ message: error.message });
-	}
-});
-
 router.delete('/delete/:id', async (req: Request, res: Response) => {
 	try {
 		const id = req.params.id;
