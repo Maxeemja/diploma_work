@@ -1,5 +1,5 @@
 <div class="container">
-  <app-go-back-link></app-go-back-link>
+  <app-go-back-link path="/"></app-go-back-link>
   <h3 class="title">{{ isEdit ? "Редагувати" : "Створити" }}</h3>
 
   <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">

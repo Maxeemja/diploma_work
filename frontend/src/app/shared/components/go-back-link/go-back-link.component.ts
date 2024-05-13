@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
@@ -8,15 +8,13 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink, MatIconModule],
   template: `
     <div class="header-arrow">
-      <a routerLink="..">
+      <a [routerLink]="path ?? '..'">
         <mat-icon aria-hidden="false" fontIcon="arrow_back"></mat-icon> Назад</a
       >
     </div>
   `,
   styleUrl: './go-back-link.component.scss',
 })
-export class GoBackLinkComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
+export class GoBackLinkComponent {
+  @Input() path?: string;
 }
