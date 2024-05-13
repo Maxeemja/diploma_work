@@ -5,7 +5,7 @@
       <div class="btn-wrapper">
         @if(authService.isCurrentUserModerator()) {
         <button mat-raised-button color="accent" (click)="onAddProject()">
-          + Проект
+          + Проєкт
         </button>
         }
         <button mat-raised-button color="primary" [routerLink]="['create']">
@@ -17,7 +17,7 @@
     <ng-container *ngIf="assignments().length; else empty">
       <table mat-table [dataSource]="assignments()" class="mat-elevation-z8">
         <ng-container matColumnDef="projectName">
-          <th mat-header-cell *matHeaderCellDef>Проект</th>
+          <th mat-header-cell *matHeaderCellDef>Проєкт</th>
           <td mat-cell *matCellDef="let assignment" class="projectName-value">
             {{ assignment.project.name }}
           </td>
@@ -60,7 +60,7 @@
         </ng-container>
 
         <ng-container matColumnDef="deadline">
-          <th mat-header-cell *matHeaderCellDef>Дедлайн</th>
+          <th mat-header-cell *matHeaderCellDef>Термін</th>
           <td mat-cell *matCellDef="let assignment">
             {{ assignment.deadline | date : "dd.MM.yyyy" }}
           </td>

@@ -45,7 +45,6 @@ export class AdminPageComponent {
 
   @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
 
-  ngOnInit() {}
 
   ngAfterViewChecked() {
     if (this.inputRef && this.projectName.length === 0) {
@@ -94,7 +93,7 @@ export class AdminPageComponent {
     this.dialog.open<{ data: DeleteModalData }>(
       ModalDeleteConfirmationComponent,
       {
-        data: { id, text: 'цей проект', entity: 'project' },
+        data: { id, text: 'цей проєкт', entity: 'project' },
       }
     );
   }

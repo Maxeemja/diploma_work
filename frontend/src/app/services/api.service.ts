@@ -107,7 +107,7 @@ export class ApiService {
         (project) => project.name.toLowerCase() === name.toLowerCase()
       ).length
     ) {
-      this.toastr.error('Проект з такою назвою вже існує', 'Помилка');
+      this.toastr.error('Проєкт з такою назвою вже існує', 'Помилка');
       return;
     }
     this.http
@@ -115,7 +115,7 @@ export class ApiService {
       .pipe(take(1))
       .subscribe(() => {
         this.getProjectsList();
-        this.toastr.success('Проект було успішно створено', 'Готово');
+        this.toastr.success('Проєкт було успішно створено', 'Готово');
       });
   }
 
@@ -167,7 +167,7 @@ export class ApiService {
       .subscribe(() => {
         this.getProjectsList();
         this.toastr.success(
-          `Проект з ID ${id} було успішно видалено!`,
+          `Проєкт з ID ${id} було успішно видалено!`,
           'Готово'
         );
       });

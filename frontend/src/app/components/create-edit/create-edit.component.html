@@ -32,7 +32,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>Дедлайн</mat-label>
+      <mat-label>Термін</mat-label>
       <input formControlName="deadline" matInput [matDatepicker]="picker" />
       <mat-datepicker-toggle
         matIconSuffix
@@ -51,7 +51,7 @@
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>ID Проекта</mat-label>
+      <mat-label>Проєкт</mat-label>
       <mat-select formControlName="project">
         <mat-option *ngFor="let project of projects()" [value]="project._id">{{
           project.name
